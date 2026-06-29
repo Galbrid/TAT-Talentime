@@ -11,6 +11,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "api.talentime.galbrid.online",
+    "api2.galbrid.online",
     "127.0.0.1",
     "localhost",
 ]
