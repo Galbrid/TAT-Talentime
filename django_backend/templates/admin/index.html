@@ -1,0 +1,159 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="tat-page-header">
+  <div>
+    <div class="dashboard-label">Dashboard</div>
+    <h1 class="tat-page-title">Talentime Administration</h1>
+    <p class="tat-page-subtitle">Manage your platform data and system settings securely.</p>
+  </div>
+</div>
+
+<div class="tat-grid">
+  <section class="tat-card" style="grid-column: span 8;">
+    <div class="tat-card-header">
+      <div>
+        <p class="tat-card-title">Welcome to TALENTIME</p>
+        <p style="margin: 8px 0 0; color: var(--tat-muted);">Centralized administration for students, courses, payments, and security monitoring.</p>
+      </div>
+      <div class="tat-hero-label tat-status-pill">Enterprise Secure</div>
+    </div>
+    <div class="hero-card">
+      <div>
+        <p style="margin: 0 0 10px; color: var(--tat-muted);">Your control center for role-based access, live sessions, and audit-ready activity.</p>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px;">
+          <div class="tat-status-pill">Protected Sessions</div>
+          <div class="tat-status-pill">Role Based Access</div>
+          <div class="tat-status-pill">Login Activity</div>
+          <div class="tat-status-pill">Device Monitoring</div>
+        </div>
+      </div>
+      <div class="tat-card-icon">🛡️</div>
+    </div>
+  </section>
+
+  <section class="tat-card" style="grid-column: span 4; display: grid; gap: 16px;">
+    <div>
+      <p class="tat-card-title">Security snapshot</p>
+      <p style="margin: 6px 0 0; color: var(--tat-muted);">Real-time protection and audit awareness.</p>
+    </div>
+    <div class="tat-status-list" style="display: grid; gap: 12px;">
+      <div class="tat-card" style="padding: 18px;">
+        <strong>Session timeout</strong>
+        <p style="margin: 8px 0 0; color: var(--tat-muted);">Next warning in 7 minutes.</p>
+      </div>
+      <div class="tat-card" style="padding: 18px;">
+        <strong>Device monitoring</strong>
+        <p style="margin: 8px 0 0; color: var(--tat-muted);">3 active admin devices.</p>
+      </div>
+      <div class="tat-card" style="padding: 18px;">
+        <strong>Login alerts</strong>
+        <p style="margin: 8px 0 0; color: var(--tat-muted);">2 failed logins blocked.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tat-card" style="grid-column: span 12;">
+    <div class="tat-card-header">
+      <p class="tat-card-title">Operations</p>
+      <div class="tat-status-pill">Live visibility</div>
+    </div>
+    <div class="tat-stat-grid">
+      <div class="tat-stat-card">
+        <span class="tat-stat-icon">📄</span>
+        <div class="tat-stat-details">
+          <p class="tat-stat-label">Total Applications</p>
+          <p class="tat-stat-value">1,824</p>
+        </div>
+      </div>
+      <div class="tat-stat-card">
+        <span class="tat-stat-icon">🎓</span>
+        <div class="tat-stat-details">
+          <p class="tat-stat-label">Total Students</p>
+          <p class="tat-stat-value">4,220</p>
+        </div>
+      </div>
+      <div class="tat-stat-card">
+        <span class="tat-stat-icon">💰</span>
+        <div class="tat-stat-details">
+          <p class="tat-stat-label">Payments Received</p>
+          <p class="tat-stat-value">$142K</p>
+        </div>
+      </div>
+      <div class="tat-stat-card">
+        <span class="tat-stat-icon">🟢</span>
+        <div class="tat-stat-details">
+          <p class="tat-stat-label">Active Users</p>
+          <p class="tat-stat-value">184</p>
+        </div>
+      </div>
+      <div class="tat-stat-card">
+        <span class="tat-stat-icon">📩</span>
+        <div class="tat-stat-details">
+          <p class="tat-stat-label">Pending Inquiries</p>
+          <p class="tat-stat-value">72</p>
+        </div>
+      </div>
+      <div class="tat-stat-card">
+        <span class="tat-stat-icon">⚙️</span>
+        <div class="tat-stat-details">
+          <p class="tat-stat-label">System Health</p>
+          <p class="tat-stat-value">99.8%</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tat-card" style="grid-column: span 12;">
+    <div class="tat-card-header">
+      <p class="tat-card-title">Core Modules</p>
+      <p style="margin: 0; color: var(--tat-muted);">Quick actions for every section.</p>
+    </div>
+    <div class="tat-module-grid">
+      <div class="tat-module-card">
+        <div class="tat-module-icon">👥</div>
+        <div class="tat-module-content">
+          <p class="tat-module-name">Users</p>
+          <p class="tat-module-meta">Manage admin and learner accounts.</p>
+        </div>
+      </div>
+      <div class="tat-module-card">
+        <div class="tat-module-icon">🛡️</div>
+        <div class="tat-module-content">
+          <p class="tat-module-name">Roles</p>
+          <p class="tat-module-meta">Assign permissions and access levels.</p>
+        </div>
+      </div>
+      <div class="tat-module-card">
+        <div class="tat-module-icon">📄</div>
+        <div class="tat-module-content">
+          <p class="tat-module-name">Applications</p>
+          <p class="tat-module-meta">Review new course enrollments.</p>
+        </div>
+      </div>
+      <div class="tat-module-card">
+        <div class="tat-module-icon">📜</div>
+        <div class="tat-module-content">
+          <p class="tat-module-name">Certificates</p>
+          <p class="tat-module-meta">Track certification status.</p>
+        </div>
+      </div>
+      <div class="tat-module-card">
+        <div class="tat-module-icon">💰</div>
+        <div class="tat-module-content">
+          <p class="tat-module-name">Payments</p>
+          <p class="tat-module-meta">Monitor revenue and settlements.</p>
+        </div>
+      </div>
+      <div class="tat-module-card">
+        <div class="tat-module-icon">✉️</div>
+        <div class="tat-module-content">
+          <p class="tat-module-name">Inquiries</p>
+          <p class="tat-module-meta">Respond to student questions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

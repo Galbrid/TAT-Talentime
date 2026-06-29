@@ -1,0 +1,20 @@
+(node:31176) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Error sending OTP email: Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5a478bee46e88-30c7c52d669sm13015727eec.11 - gsmtp
+    at SMTPConnection._formatError (C:\Users\aslam\Downloads\New folder\smk-a1\node_modules\nodemailer\lib\smtp-connection\index.js:905:19)
+    at SMTPConnection._actionAUTHComplete (C:\Users\aslam\Downloads\New folder\smk-a1\node_modules\nodemailer\lib\smtp-connection\index.js:1726:34)
+    at SMTPConnection.<anonymous> (C:\Users\aslam\Downloads\New folder\smk-a1\node_modules\nodemailer\lib\smtp-connection\index.js:644:26)
+    at SMTPConnection._processResponse (C:\Users\aslam\Downloads\New folder\smk-a1\node_modules\nodemailer\lib\smtp-connection\index.js:1099:20)
+    at SMTPConnection._onData (C:\Users\aslam\Downloads\New folder\smk-a1\node_modules\nodemailer\lib\smtp-connection\index.js:865:14)
+    at SMTPConnection._onSocketData (C:\Users\aslam\Downloads\New folder\smk-a1\node_modules\nodemailer\lib\smtp-connection\index.js:224:44)
+    at TLSSocket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:563:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)
+    at Readable.push (node:internal/streams/readable:394:5) {
+  code: 'EAUTH',
+  response: '535-5.7.8 Username and Password not accepted. For more information, go to\n' +
+    '535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5a478bee46e88-30c7c52d669sm13015727eec.11 - gsmtp',
+  responseCode: 535,
+  command: 'AUTH PLAIN'
+}

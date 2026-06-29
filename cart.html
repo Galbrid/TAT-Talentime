@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart | Talentime Academy</title>
+  <link rel="stylesheet" href="/assets/css/sarah.css" />
+  <script src="/assets/js/api-config.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="topbar container">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/assets/images/logo.png" alt="Talentime logo" />
+      </a>
+      <div class="top-links">
+        <a href="tel:+91 1234567890">+91 1234567890</a>
+        <a href="tel:+91 1234567890">+91 1234567890</a>
+        <a class="top-link" href="mailto:info@talentimebs.com">info@talentimebs.com</a>
+      </div>
+    </div>
+    <nav class="container mainnav">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/list/course">Course List</a></li>
+        <li><a href="/list/book">Book List</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-pill" href="/cart">0</a>
+        <div id="userMenu" style="display: none; position: relative;">
+          <button id="profileBtn" style="background: none; border: none; cursor: pointer; font-weight: 600; color: #2E8B57; padding: 8px 14px; border-radius: 8px; border: 1px solid #ddd; display: flex; align-items: center; gap: 4px;">
+            <span id="userName">Profile</span>
+            <span style="font-size: 0.8rem;">▼</span>
+          </button>
+          <div id="dropdownMenu" style="display: none; position: absolute; right: 0; top: 100%; background: white; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 1000; min-width: 180px; margin-top: 8px;">
+            <a href="/my-courses.html" style="display: block; padding: 12px 16px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">My Courses</a>
+            <a href="/dashboard" style="display: block; padding: 12px 16px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">Edit Profile</a>
+            <button onclick="logout()" style="display: block; width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; cursor: pointer; color: #e74c3c; font-weight: 600; font-family: inherit;">Logout</button>
+          </div>
+        </div>
+        <a class="nav-button" id="loginBtn" href="/customer/login.html">Login</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container page-section">
+    <div id="cart-content">
+      <!-- Dynamic cart items will be injected here -->
+    </div>
+    
+    <div class="course-card" id="empty-cart-msg" style="display: none;">
+      <h1>Your cart is empty</h1>
+      <p>Add a course or resource to begin enrollment.</p>
+      <a class="btn btn-primary" href="/list/course">Browse Courses</a>
+    </div>
+
+    <div class="course-card" id="payment-summary" style="display: none; margin-top: 2rem;">
+      <h2>Payment Summary</h2>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+        <span>Subtotal:</span>
+        <span id="subtotal-amount">₹0.00</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+        <span>Tax (18% GST):</span>
+        <span id="tax-amount">₹0.00</span>
+      </div>
+      <hr style="margin: 1rem 0; border: none; border-top: 1px solid rgba(0,0,0,0.1);" />
+      <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem;">
+        <span>Total:</span>
+        <span id="total-amount">₹0.00</span>
+      </div>
+      <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="openPaymentModal()">Proceed to Checkout</button>
+    </div>
+  </main>
+
+  <!-- Payment Modal -->
+  <div id="payment-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background: white; border-radius: 12px; width: 90%; max-width: 500px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative;">
+      <button onclick="closePaymentModal()" style="position: absolute; top: 1rem; right: 1.5rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #666;">&times;</button>
+      <h2 style="margin-top: 0; margin-bottom: 1.5rem; color: var(--navy);">Select Payment Method</h2>
+      
+      <!-- Payment Tabs -->
+      <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid #eee; padding-bottom: 0.5rem;">
+        <button class="pay-tab active" onclick="switchPayTab('card')" style="flex: 1; padding: 0.5rem; background: none; border: none; border-bottom: 3px solid var(--teal); font-weight: bold; color: var(--teal); cursor: pointer;">Card</button>
+        <button class="pay-tab" onclick="switchPayTab('upi')" style="flex: 1; padding: 0.5rem; background: none; border: none; border-bottom: 3px solid transparent; font-weight: bold; color: #666; cursor: pointer;">UPI</button>
+        <button class="pay-tab" onclick="switchPayTab('netbanking')" style="flex: 1; padding: 0.5rem; background: none; border: none; border-bottom: 3px solid transparent; font-weight: bold; color: #666; cursor: pointer;">Net Banking</button>
+      </div>
+
+      <!-- Card Form -->
+      <div id="pay-card" class="pay-content">
+        <div style="margin-bottom: 1rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Card Number</label>
+          <input type="text" placeholder="XXXX XXXX XXXX XXXX" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
+        </div>
+        <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+          <div style="flex: 1;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Expiry Date</label>
+            <input type="text" placeholder="MM/YY" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
+          </div>
+          <div style="flex: 1;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">CVV</label>
+            <input type="password" placeholder="•••" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
+          </div>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Name on Card</label>
+          <input type="text" placeholder="John Doe" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
+        </div>
+      </div>
+
+      <!-- UPI Form -->
+      <div id="pay-upi" class="pay-content" style="display: none; text-align: center; padding: 1rem 0;">
+        <img src="/assets/images/qr-placeholder.png" alt="QR Code" style="width: 150px; height: 150px; background: #eee; margin: 0 auto 1rem; border-radius: 8px; display: block;" onerror="this.src='https://via.placeholder.com/150?text=Scan+QR'">
+        <p style="margin-bottom: 1rem; color: #555;">Scan with any UPI App (GPay, PhonePe, Paytm)</p>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+          <span style="color: #888;">OR</span>
+        </div>
+        <div style="margin-top: 1rem; text-align: left;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Enter UPI ID</label>
+          <input type="text" placeholder="username@upi" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px;">
+        </div>
+      </div>
+
+      <!-- Net Banking Form -->
+      <div id="pay-netbanking" class="pay-content" style="display: none;">
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Select Bank</label>
+          <select style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px; background: white;">
+            <option>HDFC Bank</option>
+            <option>State Bank of India</option>
+            <option>ICICI Bank</option>
+            <option>Axis Bank</option>
+            <option>Kotak Mahindra Bank</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Payment Success Display -->
+      <div id="pay-success" class="pay-content" style="display: none; text-align: center; padding: 2rem 0;">
+        <div style="width: 60px; height: 60px; background: #28a745; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem;">✓</div>
+        <h3 style="margin-bottom: 0.5rem; color: #28a745;">Payment Successful!</h3>
+        <p style="color: #666;">Your transaction was completed successfully.</p>
+      </div>
+
+      <button id="pay-now-btn" class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="processPayment()">Pay Now</button>
+    </div>
+  </div>
+
+  <script>
+    function renderCart() {
+      // Fetch cart from local storage, expect array of { id, name, price }
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartContent = document.getElementById('cart-content');
+      const emptyMsg = document.getElementById('empty-cart-msg');
+      const paymentSummary = document.getElementById('payment-summary');
+
+      if (cart.length === 0) {
+        cartContent.style.display = 'none';
+        paymentSummary.style.display = 'none';
+        emptyMsg.style.display = 'block';
+        return;
+      }
+
+      emptyMsg.style.display = 'none';
+      cartContent.style.display = 'block';
+      paymentSummary.style.display = 'block';
+
+      let html = '';
+      let subtotal = 0;
+
+      cart.forEach((item, index) => {
+        subtotal += Number(item.price);
+        html += `
+          <div class="course-card" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div>
+              <h3 style="margin: 0 0 0.5rem 0;">${item.name}</h3>
+              <p style="margin: 0; color: var(--teal); font-weight: bold;">₹${Number(item.price).toFixed(2)}</p>
+            </div>
+            <button onclick="removeFromCart(${index})" style="background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Remove</button>
+          </div>
+        `;
+      });
+
+      cartContent.innerHTML = html;
+
+      // Payment Calculation
+      const taxRate = 0.18;
+      const tax = subtotal * taxRate;
+      const total = subtotal + tax;
+
+      document.getElementById('subtotal-amount').innerText = '₹' + subtotal.toFixed(2);
+      document.getElementById('tax-amount').innerText = '₹' + tax.toFixed(2);
+      document.getElementById('total-amount').innerText = '₹' + total.toFixed(2);
+      
+      // Update nav pill
+      const navPill = document.querySelector('.nav-pill');
+      if (navPill) navPill.innerText = cart.length;
+    }
+
+    function removeFromCart(index) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function openPaymentModal() {
+      document.getElementById('payment-modal').style.display = 'flex';
+      document.getElementById('pay-now-btn').innerText = `Pay ${document.getElementById('total-amount').innerText}`;
+      
+      // Reset state if previously opened
+      document.getElementById('pay-success').style.display = 'none';
+      document.getElementById('pay-now-btn').style.display = 'block';
+      switchPayTab('card');
+    }
+
+    function closePaymentModal() {
+      document.getElementById('payment-modal').style.display = 'none';
+    }
+
+    function switchPayTab(tab) {
+      document.querySelectorAll('.pay-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.pay-tab').forEach(el => {
+        el.style.borderBottomColor = 'transparent';
+        el.style.color = '#666';
+      });
+
+      document.getElementById('pay-' + tab).style.display = 'block';
+      
+      const activeBtn = Array.from(document.querySelectorAll('.pay-tab')).find(el => el.innerText.toLowerCase().includes(tab.replace('netbanking', 'net')));
+      if (activeBtn) {
+        activeBtn.style.borderBottomColor = 'var(--teal)';
+        activeBtn.style.color = 'var(--teal)';
+      }
+    }
+
+    function processPayment() {
+      const btn = document.getElementById('pay-now-btn');
+      btn.innerText = "Processing...";
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+
+      setTimeout(() => {
+        document.querySelectorAll('.pay-content').forEach(el => el.style.display = 'none');
+        document.getElementById('pay-success').style.display = 'block';
+        btn.style.display = 'none';
+
+        // Clear Cart
+        localStorage.removeItem('cart');
+        renderCart();
+
+        setTimeout(() => {
+          closePaymentModal();
+          window.location.href = '/dashboard';
+        }, 3000);
+      }, 2000);
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', renderCart);
+  </script>
+
+  <footer class="site-footer container">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-title">Contact</p>
+        <a href="tel:+91 1234567890">+91 1234567890</a>
+        <a href="tel:+91 1234567890">+91 1234567890</a>
+        <a href="mailto:info@talentimebs.com">info@talentimebs.com</a>
+      </div>
+      <div>
+        <p class="footer-title">Links</p>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact Us</a>
+      </div>
+      <div>
+        <p class="footer-title">Address</p>
+        <p>50,Madurai Main Rd, Trichy - 620008</p>
+      </div>
+    </div>
+    <p class="footer-note">© 2026 TALENTIME ACADEMY OF MEDICAL CODING</p>
+  </footer>
+</body>
+</html>

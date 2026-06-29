@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Login or register to access your Talentime Academy dashboard">
+  <title>Login & Register | Talentime Academy</title>
+  <link rel="stylesheet" href="/assets/css/sarah.css">
+  <script src="/assets/js/api-config.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, rgba(0, 122, 120, 0.1) 0%, rgba(198, 146, 46, 0.1) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+      gap: 30px;
+    }
+    
+    .auth-container {
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .auth-header h1 {
+      margin: 0 0 12px;
+      color: var(--dark-navy);
+      font-size: 2rem;
+    }
+
+    .auth-header p {
+      margin: 0;
+      color: var(--royal-navy);
+    }
+
+    .auth-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+      background: rgba(3, 122, 120, 0.08);
+      border-radius: 12px;
+      padding: 4px;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 12px 16px;
+      border: none;
+      background: transparent;
+      color: var(--royal-navy);
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .auth-tab.active {
+      background: white;
+      color: var(--teal);
+      box-shadow: 0 4px 12px rgba(0, 122, 120, 0.1);
+    }
+
+    .auth-form-group {
+      margin-bottom: 20px;
+    }
+
+    .auth-form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--dark-navy);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .auth-form-group input,
+    .auth-form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid rgba(3, 122, 120, 0.2);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--midnight-blue);
+      transition: border-color 0.2s ease;
+    }
+
+    .auth-form-group input:focus,
+    .auth-form-group select:focus {
+      outline: none;
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(0, 122, 120, 0.1);
+    }
+
+    .password-field {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 16px;
+      top: 38px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--teal);
+      font-size: 1.2rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .auth-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(180deg, var(--teal), var(--light-teal));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .auth-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 122, 120, 0.25);
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 20px;
+      color: var(--royal-navy);
+    }
+
+    .auth-footer a {
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .auth-footer a:hover {
+      color: var(--gold);
+    }
+
+    .form-divider {
+      display: flex;
+      align-items: center;
+      margin: 24px 0;
+      color: var(--royal-navy);
+    }
+
+    .form-divider::before,
+    .form-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(3, 122, 120, 0.2);
+    }
+
+    .form-divider span {
+      padding: 0 12px;
+      font-size: 0.9rem;
+    }
+
+    .oauth-buttons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .oauth-btn {
+      flex: 1;
+      padding: 12px;
+      border: 1.5px solid rgba(3, 122, 120, 0.2);
+      background: white;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .oauth-btn:hover {
+      background: rgba(3, 122, 120, 0.05);
+      border-color: var(--teal);
+    }
+
+    .error-message {
+      background: rgba(220, 38, 38, 0.1);
+      color: #dc2626;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .success-message {
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+
+    .otp-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .otp-resend {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid rgba(3, 122, 120, 0.25);
+      background: white;
+      color: var(--teal);
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .otp-resend:hover:not(:disabled) {
+      background: rgba(3, 122, 120, 0.06);
+      border-color: var(--teal);
+    }
+
+    .otp-resend:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-header">
+      <img src="/assets/images/logo.png" alt="Talentime Business Solutions Logo" style="height: 80px; width: auto; max-width: 300px; object-fit: contain; margin-bottom: 12px;">
+      <p>Access your learning dashboard</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+      <button class="auth-tab" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm" class="auth-form">
+      <div class="error-message" id="loginError"></div>
+      <div class="success-message" id="loginSuccess"></div>
+
+      <form onsubmit="handleLogin(event)" id="mainLoginForm">
+        <div class="auth-form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" required>
+        </div>
+
+        <div class="auth-form-group">
+          <label for="loginPassword">Password</label>
+          <div class="password-field">
+            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            <button type="button" class="toggle-password" onclick="togglePassword('loginPassword')">👁️</button>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <label style="display: flex; align-items: center; gap: 8px; margin: 0; font-weight: normal;">
+            <input type="checkbox" id="rememberMe"> Remember me
+          </label>
+          <a href="#" style="color: var(--teal); text-decoration: none; font-weight: 600;">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="auth-submit">Login</button>
+      </form>
+
+            <form onsubmit="handleVerifyOTP(event)" id="otpForm" class="hidden">
+        <div class="auth-form-group">
+          <label for="otpCode">Enter 6-digit OTP sent to your email</label>
+          <input type="text" id="otpCode" placeholder="123456" required maxlength="6" pattern="[0-9]{6}">
+          <input type="hidden" id="otpEmail">
+        </div>
+        <div class="otp-actions">
+          <button type="submit" class="auth-submit">Verify OTP & Login</button>
+          <button type="button" class="otp-resend" id="resendOtpBtn" onclick="handleResendOTP()">Resend OTP</button>
+        </div>
+      </form>
+
+      <div class="form-divider"><span>OR</span></div>
+
+      <div class="oauth-buttons" id="googleButtonContainer">
+        <!-- Google button will be rendered here dynamically -->
+      </div>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="#" onclick="switchTab('register')">Register here</a>
+      </div>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="registerForm" class="auth-form hidden">
+      <div class="error-message" id="registerError"></div>
+      <div class="success-message" id="registerSuccess"></div>
+
+      <form onsubmit="handleRegister(event)">
+        <div class="form-row">
+          <div class="auth-form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" placeholder="John" required>
+          </div>
+          <div class="auth-form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" placeholder="Doe" required>
+          </div>
+        </div>
+
+        <div class="auth-form-group">
+          <label for="registerEmail">Email Address</label>
+          <input type="email" id="registerEmail" placeholder="you@example.com" required>
+        </div>
+
+        <div class="auth-form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="+1 (234) 567-890" required>
+        </div>
+
+        <div class="auth-form-group">
+          <label for="country">Country</label>
+          <select id="country" required>
+            <option value="">Select your country</option>
+            <option value="US">United States</option>
+            <option value="IN">India</option>
+            <option value="UK">United Kingdom</option>
+            <option value="CA">Canada</option>
+            <option value="AU">Australia</option>
+          </select>
+        </div>
+
+        <div class="auth-form-group">
+          <label for="registerPassword">Password</label>
+          <div class="password-field">
+            <input type="password" id="registerPassword" placeholder="Min. 8 characters" required>
+            <button type="button" class="toggle-password" onclick="togglePassword('registerPassword')">👁️</button>
+          </div>
+        </div>
+
+        <div class="auth-form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <div class="password-field">
+            <input type="password" id="confirmPassword" placeholder="Re-enter password" required>
+            <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">👁️</button>
+          </div>
+        </div>
+
+        <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+          <input type="checkbox" id="agreeTerms" required>
+          <span style="color: var(--royal-navy); font-size: 0.9rem;">I agree to the <a href="#" style="color: var(--teal); text-decoration: none;">Terms of Service</a> and <a href="#" style="color: var(--teal); text-decoration: none;">Privacy Policy</a></span>
+        </label>
+
+        <button type="submit" class="auth-submit">Create Account</button>
+      </form>
+
+      <div class="form-divider"><span>OR</span></div>
+
+      <div class="oauth-buttons">
+        <button class="oauth-btn" onclick="oauthRegister('google')">Google</button>
+        <button class="oauth-btn" onclick="oauthRegister('github')">GitHub</button>
+      </div>
+
+      <div class="auth-footer">
+        Already have an account? <a href="#" onclick="switchTab('login')">Login here</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tab) {
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+      const tabs = document.querySelectorAll('.auth-tab');
+
+      tabs.forEach(t => t.classList.remove('active'));
+
+      if (tab === 'login') {
+        loginForm.classList.remove('hidden');
+        registerForm.classList.add('hidden');
+        tabs[0].classList.add('active');
+      } else {
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+        tabs[1].classList.add('active');
+      }
+
+      // Clear messages
+      document.getElementById('loginError').style.display = 'none';
+      document.getElementById('registerError').style.display = 'none';
+    }
+
+    function togglePassword(fieldId) {
+      const field = document.getElementById(fieldId);
+      field.type = field.type === 'password' ? 'text' : 'password';
+    }
+
+    async function handleLogin(event) {
+      event.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const errorDiv = document.getElementById('loginError');
+      const successDiv = document.getElementById('loginSuccess');
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          if (data.requireOTP) {
+            document.getElementById('mainLoginForm').classList.add('hidden');
+            document.getElementById('otpForm').classList.remove('hidden');
+            document.getElementById('otpEmail').value = data.email;
+            successDiv.textContent = data.message;
+            successDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+          } else {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            document.cookie = `token=${data.token}; path=/; max-age=2592000; SameSite=Lax`;
+            const redirect = new URLSearchParams(window.location.search).get('redirect');
+            window.location.href = redirect || '/';
+          }
+        } else {
+          errorDiv.textContent = data.message || 'Login failed. Please try again.';
+          errorDiv.style.display = 'block';
+          successDiv.style.display = 'none';
+        }
+      } catch (error) {
+        errorDiv.textContent = 'Error connecting to server. Please try again.';
+        errorDiv.style.display = 'block';
+      }
+    }
+
+    function startResendCooldown(seconds = 30) {
+      const button = document.getElementById('resendOtpBtn');
+      if (!button) return;
+
+      let remaining = seconds;
+      button.disabled = true;
+      button.textContent = 'Resend OTP in ' + remaining + 's';
+
+      const timer = setInterval(() => {
+        remaining -= 1;
+        if (remaining <= 0) {
+          clearInterval(timer);
+          button.disabled = false;
+          button.textContent = 'Resend OTP';
+        } else {
+          button.textContent = 'Resend OTP in ' + remaining + 's';
+        }
+      }, 1000);
+    }
+
+    async function handleResendOTP() {
+      const email = document.getElementById('otpEmail').value;
+      const errorDiv = document.getElementById('loginError');
+      const successDiv = document.getElementById('loginSuccess');
+
+      if (!email) {
+        errorDiv.textContent = 'Please login again before requesting a new OTP.';
+        errorDiv.style.display = 'block';
+        successDiv.style.display = 'none';
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/auth/resend-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          document.getElementById('otpCode').value = '';
+          successDiv.textContent = data.message || 'A new OTP has been sent to your email.';
+          successDiv.style.display = 'block';
+          errorDiv.style.display = 'none';
+          startResendCooldown();
+        } else {
+          errorDiv.textContent = data.message || 'Could not resend OTP. Please try again.';
+          errorDiv.style.display = 'block';
+          successDiv.style.display = 'none';
+        }
+      } catch (error) {
+        errorDiv.textContent = 'Error requesting a new OTP.';
+        errorDiv.style.display = 'block';
+        successDiv.style.display = 'none';
+      }
+    }
+
+    async function handleVerifyOTP(event) {
+      event.preventDefault();
+      const email = document.getElementById('otpEmail').value;
+      const otp = document.getElementById('otpCode').value;
+      const errorDiv = document.getElementById('loginError');
+
+      try {
+        const response = await fetch('/api/auth/verify-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, otp })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          document.cookie = `token=${data.token}; path=/; max-age=2592000; SameSite=Lax`;
+          const redirect = new URLSearchParams(window.location.search).get('redirect');
+          window.location.href = redirect || '/';
+        } else {
+          errorDiv.textContent = data.message || 'OTP verification failed.';
+          errorDiv.style.display = 'block';
+        }
+      } catch (error) {
+        errorDiv.textContent = 'Error verifying OTP.';
+        errorDiv.style.display = 'block';
+      }
+    }
+
+    async function handleRegister(event) {
+      event.preventDefault();
+      
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const email = document.getElementById('registerEmail').value;
+      const phone = document.getElementById('phone').value;
+      const country = document.getElementById('country').value;
+      const password = document.getElementById('registerPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const errorDiv = document.getElementById('registerError');
+      const successDiv = document.getElementById('registerSuccess');
+
+      if (password !== confirmPassword) {
+        errorDiv.textContent = 'Passwords do not match.';
+        errorDiv.style.display = 'block';
+        return;
+      }
+
+      if (password.length < 8) {
+        errorDiv.textContent = 'Password must be at least 8 characters long.';
+        errorDiv.style.display = 'block';
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            phone,
+            country,
+            password
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          successDiv.textContent = 'Account created successfully! Logging you in...';
+          successDiv.style.display = 'block';
+          
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          
+          // Set cookie for backend authentication
+          document.cookie = `token=${data.token}; path=/; max-age=2592000; SameSite=Lax`;
+
+          setTimeout(() => {
+            const redirect = new URLSearchParams(window.location.search).get('redirect');
+            window.location.href = redirect || '/';
+          }, 2000);
+        } else {
+          errorDiv.textContent = data.message || 'Registration failed. Please try again.';
+          errorDiv.style.display = 'block';
+        }
+      } catch (error) {
+        errorDiv.textContent = 'Error connecting to server. Please try again.';
+        errorDiv.style.display = 'block';
+      }
+    }
+
+    function handleGoogleCallback(response) {
+      const errorDiv = document.getElementById('loginError');
+      const successDiv = document.getElementById('loginSuccess');
+      
+      // Send the Google JWT token to the backend for verification
+      fetch('/api/auth/google', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: response.credential })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          document.cookie = `token=${data.token}; path=/; max-age=2592000; SameSite=Lax`;
+          
+          successDiv.textContent = 'Signed in with Google successfully!';
+          successDiv.style.display = 'block';
+          
+          setTimeout(() => {
+            const redirect = new URLSearchParams(window.location.search).get('redirect');
+            window.location.href = redirect || '/';
+          }, 1000);
+        } else {
+          errorDiv.textContent = data.message || 'Google authentication failed.';
+          errorDiv.style.display = 'block';
+        }
+      })
+      .catch(err => {
+        errorDiv.textContent = 'Error connecting to server for Google authentication.';
+        errorDiv.style.display = 'block';
+      });
+    }
+
+    // Auto-switch to register if URL param is present
+    window.addEventListener('load', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('register')) {
+        switchTab('register');
+      }
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('/api/config')
+        .then(res => res.json())
+        .then(config => {
+          if (config.googleClientId && config.googleClientId !== 'YOUR_GOOGLE_CLIENT_ID_HERE.apps.googleusercontent.com') {
+            const script = document.createElement('script');
+            script.src = "https://accounts.google.com/gsi/client";
+            script.async = true;
+            script.defer = true;
+            script.onload = () => {
+              google.accounts.id.initialize({
+                client_id: config.googleClientId,
+                callback: handleGoogleCallback
+              });
+              google.accounts.id.renderButton(
+                document.getElementById("googleButtonContainer"),
+                { theme: "outline", size: "large", type: "standard", shape: "rectangular", text: "signin_with" }
+              );
+            };
+            document.head.appendChild(script);
+          } else {
+            const container = document.getElementById('googleButtonContainer');
+            if(container) {
+              container.innerHTML = '<div class="error-message" style="display:block; width:100%; text-align:center;">[GSI_LOGGER]: The given client ID is not found. Please set GOOGLE_CLIENT_ID in .env</div>';
+            }
+          }
+        })
+        .catch(err => console.error("Failed to load config for Google Sign-In", err));
+    });
+
+    function oauthRegister(provider) {
+      alert(provider + ' registration is not fully configured yet.');
+    }
+  </script>
+  <footer class="site-footer container">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-title">Contact</p>
+        <a href="tel:+91 1234567890">+91 1234567890</a>
+        <a href="tel:+91 1234567890">+91 1234567890</a>
+        <a href="mailto:originjai@gmail.com">originjai@gmail.com</a>
+      </div>
+      <div>
+        <p class="footer-title">Links</p>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact Us</a>
+      </div>
+      <div>
+        <p class="footer-title">Address</p>
+        <p>No Madurai Rd, Trichy – 620008</p>
+      </div>
+    </div>
+    <p class="footer-note">© 2026 Talentime Business Solutions. All rights reserved.</p>
+  </footer>
+</body>
+</html>

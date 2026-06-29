@@ -1,0 +1,757 @@
+﻿{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block title %}TALENTIME | Administration Database Controller{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --tat-bg: #f8fbf9;
+    --tat-surface: #ffffff;
+    --tat-primary: #2E8B57;
+    --tat-secondary: #4CAF50;
+    --tat-border: #DDEEE5;
+    --tat-text: #1F2937;
+    --tat-muted: #6B7280;
+    --tat-heading: #134E4A;
+    --tat-mint: #EAF7F0;
+    --tat-shadow: 0 18px 60px rgba(26, 121, 88, 0.08);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(180deg, #f8fbf9 0%, #f0f7f2 100%);
+    color: var(--tat-text);
+    margin: 0;
+  }
+
+  a {
+    color: var(--tat-primary);
+  }
+
+  #header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--tat-border);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    box-shadow: 0 6px 22px rgba(35, 123, 81, 0.06);
+  }
+
+  #branding {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  #branding img {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: #eaf7f0;
+    padding: 6px;
+    object-fit: contain;
+  }
+
+  .tat-branding-title {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  .tat-branding-title strong {
+    font-size: 1rem;
+    color: var(--tat-heading);
+    letter-spacing: 0.03em;
+  }
+
+  .tat-branding-title span {
+    font-size: 0.82rem;
+    color: var(--tat-muted);
+  }
+
+  .tat-header-search {
+    flex: 1;
+    max-width: 620px;
+  }
+
+  .tat-header-search input {
+    width: 100%;
+    border: 1px solid var(--tat-border);
+    border-radius: 999px;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+    color: var(--tat-text);
+    background: #ffffff;
+    box-shadow: inset 0 1px 2px rgba(31, 41, 55, 0.06);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .tat-header-search input:focus {
+    outline: none;
+    border-color: var(--tat-primary);
+    box-shadow: 0 0 0 4px rgba(46, 139, 87, 0.1);
+  }
+
+  .tat-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .tat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(234, 247, 240, 0.75);
+    color: var(--tat-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid #d2f0df;
+  }
+
+  .tat-icon-button {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: #f6faf8;
+    border: 1px solid #e5f1eb;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .tat-icon-button:hover {
+    transform: translateY(-1px);
+    background: #ecf7ee;
+  }
+
+  .tat-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 18px;
+    border: 1px solid #e5f1eb;
+    background: #ffffff;
+    cursor: pointer;
+  }
+
+  .tat-profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #eaf7f0;
+    display: grid;
+    place-items: center;
+    color: var(--tat-primary);
+    font-weight: 700;
+  }
+
+  .tat-profile-meta {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .tat-profile-meta strong {
+    font-size: 0.95rem;
+    color: var(--tat-heading);
+  }
+
+  .tat-profile-meta small {
+    color: var(--tat-muted);
+    font-size: 0.78rem;
+  }
+
+  .tat-shell {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 110px 24px 32px;
+    min-height: calc(100vh - 142px);
+  }
+
+  .tat-sidebar {
+    background: #ffffff;
+    border: 1px solid var(--tat-border);
+    border-radius: 28px;
+    padding: 22px;
+    position: sticky;
+    top: 92px;
+    align-self: start;
+    height: fit-content;
+    box-shadow: var(--tat-shadow);
+  }
+
+  .tat-sidebar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .tat-sidebar-top h2 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--tat-heading);
+  }
+
+  .tat-sidebar-top button {
+    border: 0;
+    background: #eff8f1;
+    color: var(--tat-primary);
+    padding: 10px 12px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  .tat-sidebar-search input {
+    width: 100%;
+    border: 1px solid var(--tat-border);
+    border-radius: 16px;
+    padding: 12px 14px;
+    background: #f6faf8;
+    color: var(--tat-text);
+    margin-bottom: 18px;
+  }
+
+  .tat-menu-section {
+    margin-bottom: 24px;
+  }
+
+  .tat-menu-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--tat-muted);
+    margin-bottom: 12px;
+  }
+
+  .tat-menu-item {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    color: var(--tat-text);
+    text-decoration: none;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    background: #ffffff;
+    transition: all 0.2s ease;
+  }
+
+  .tat-menu-item:hover {
+    background: rgba(234, 247, 240, 0.9);
+    border-color: #d8efe3;
+  }
+
+  .tat-menu-item.active {
+    background: rgba(234, 247, 240, 1);
+    border-color: var(--tat-border);
+    color: var(--tat-primary);
+  }
+
+  .tat-menu-item span {
+    display: inline-grid;
+    place-items: center;
+    font-size: 1rem;
+  }
+
+  .tat-content {
+    display: grid;
+    gap: 22px;
+  }
+
+  .tat-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .tat-page-title {
+    margin: 0;
+    font-size: 2rem;
+    color: var(--tat-heading);
+  }
+
+  .tat-page-subtitle {
+    color: var(--tat-muted);
+    margin-top: 8px;
+  }
+
+  .tat-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .tat-card {
+    background: #ffffff;
+    border: 1px solid var(--tat-border);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 18px 60px rgba(26, 121, 88, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .tat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 72px rgba(26, 121, 88, 0.1);
+  }
+
+  .tat-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  .tat-card-title {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--tat-heading);
+    font-weight: 700;
+  }
+
+  .tat-card-body {
+    display: grid;
+    gap: 12px;
+  }
+
+  .tat-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: #eff8f1;
+    color: var(--tat-primary);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .tat-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .tat-stat-card {
+    background: #ffffff;
+    border: 1px solid var(--tat-border);
+    border-radius: 22px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    transition: transform 0.25s ease;
+  }
+
+  .tat-stat-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .tat-stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: rgba(234, 247, 240, 0.8);
+    display: grid;
+    place-items: center;
+    color: var(--tat-secondary);
+  }
+
+  .tat-stat-details {
+    display: grid;
+    gap: 6px;
+  }
+
+  .tat-stat-label {
+    margin: 0;
+    color: var(--tat-muted);
+    font-size: 0.88rem;
+  }
+
+  .tat-stat-value {
+    margin: 0;
+    font-size: 1.45rem;
+    color: var(--tat-heading);
+    font-weight: 800;
+  }
+
+  .tat-module-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .tat-module-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    border-radius: 22px;
+    border: 1px solid var(--tat-border);
+    background: #ffffff;
+    box-shadow: 0 14px 40px rgba(26, 121, 88, 0.04);
+    transition: transform 0.2s ease;
+  }
+
+  .tat-module-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .tat-module-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    background: rgba(234, 247, 240, 0.9);
+    color: var(--tat-primary);
+    font-size: 1.15rem;
+  }
+
+  .tat-module-content {
+    display: grid;
+    gap: 4px;
+  }
+
+  .tat-module-name {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--tat-heading);
+  }
+
+  .tat-module-meta {
+    margin: 0;
+    font-size: 0.87rem;
+    color: var(--tat-muted);
+  }
+
+  .change-list table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid var(--tat-border);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .change-list thead th {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    border-bottom: 1px solid var(--tat-border);
+    color: var(--tat-heading);
+    font-weight: 700;
+    padding: 16px 14px;
+  }
+
+  .change-list tbody tr {
+    transition: background 0.2s ease;
+  }
+
+  .change-list tbody tr:hover {
+    background: #f4faf6;
+  }
+
+  .change-list td,
+  .change-list th {
+    padding: 14px 14px;
+    vertical-align: middle;
+  }
+
+  .paginator, .actions, .module caption {
+    color: var(--tat-muted);
+  }
+
+  .button-group,
+  .button,
+  .submit-row input {
+    border-radius: 14px;
+  }
+
+  .module .filters {
+    border: 1px solid var(--tat-border);
+    border-radius: 20px;
+    background: #ffffff;
+    padding: 18px;
+    box-shadow: 0 20px 45px rgba(26, 121, 88, 0.05);
+  }
+
+  .module .filter {
+    margin-bottom: 14px;
+  }
+
+  .module .filter label {
+    color: var(--tat-muted);
+    font-weight: 600;
+  }
+
+  .module .filter select,
+  .module .filter input {
+    border: 1px solid var(--tat-border);
+    border-radius: 14px;
+    padding: 10px 14px;
+    width: 100%;
+    background: #ffffff;
+    color: var(--tat-text);
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: rgba(234, 247, 240, 0.85);
+    color: var(--tat-primary);
+  }
+
+  .status-pill.danger {
+    background: #ffefef;
+    color: #b91c1c;
+  }
+
+  .tat-footer {
+    margin-top: 26px;
+    font-size: 0.9rem;
+    color: var(--tat-muted);
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .tat-footer a {
+    color: var(--tat-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .tat-footer a:hover {
+    color: var(--tat-primary);
+  }
+
+  .section-title {
+    font-size: 1rem;
+    margin-bottom: 18px;
+    color: var(--tat-heading);
+  }
+
+  .hero-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .hero-card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    background: rgba(46, 139, 87, 0.12);
+    color: var(--tat-primary);
+    font-size: 1.5rem;
+  }
+
+  .dashboard-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--tat-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+
+  .tat-fade-in {
+    animation: fadeIn 0.7s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 1180px) {
+    .tat-shell {
+      grid-template-columns: 1fr;
+      padding: 110px 18px 24px;
+    }
+
+    .tat-module-grid,
+    .tat-stat-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    #header {
+      padding: 14px 16px;
+    }
+
+    .tat-shell {
+      padding: 110px 16px 24px;
+    }
+
+    .tat-sidebar {
+      position: static;
+      top: auto;
+      box-shadow: none;
+      border: 1px solid var(--tat-border);
+    }
+  }
+</style>
+{% endblock %}
+
+{% block branding %}
+<div id="branding">
+  <img src="{% static 'images/logo.png' %}" alt="Talentime logo">
+  <div class="tat-branding-title">
+    <strong>TALENTIME</strong>
+    <span>Administration Database Controller</span>
+  </div>
+</div>
+{% endblock %}
+
+{% block usertools %}
+<div class="tat-header-search">
+  <input type="search" id="adminGlobalSearch" placeholder="Search modules, tables or records...">
+</div>
+<div class="tat-header-actions">
+  <div class="tat-badge">Protected Access</div>
+  <button type="button" class="tat-icon-button" aria-label="Notifications">🔔</button>
+  <div class="tat-profile">
+    <div class="tat-profile-avatar">A</div>
+    <div class="tat-profile-meta">
+      <strong>Admin User</strong>
+      <small>Administrator</small>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block content %}
+<div class="tat-shell tat-fade-in">
+  <aside class="tat-sidebar">
+    <div class="tat-sidebar-top">
+      <h2>Navigation</h2>
+      <button type="button" id="sidebarToggle">Menu</button>
+    </div>
+    <div class="tat-sidebar-search">
+      <input type="search" id="sidebarSearch" placeholder="Search menu...">
+    </div>
+    <div class="tat-menu-section">
+      <div class="tat-menu-title">Accounts</div>
+      <a href="{% url 'admin:accounts_role_changelist' %}" class="tat-menu-item">
+        <span>👤</span>
+        <div>Roles</div>
+      </a>
+      <a href="{% url 'admin:accounts_user_changelist' %}" class="tat-menu-item">
+        <span>🧑‍💼</span>
+        <div>Users</div>
+      </a>
+      <a href="{% url 'admin:accounts_userrolemapping_changelist' %}" class="tat-menu-item">
+        <span>🔗</span>
+        <div>User role mappings</div>
+      </a>
+    </div>
+    <div class="tat-menu-section">
+      <div class="tat-menu-title">Authentication & Authorization</div>
+      <a href="{% url 'admin:auth_group_changelist' %}" class="tat-menu-item">
+        <span>🛡️</span>
+        <div>Groups</div>
+      </a>
+    </div>
+    <div class="tat-menu-section">
+      <div class="tat-menu-title">Portal</div>
+      <a href="{% url 'admin:portal_application_changelist' %}" class="tat-menu-item">
+        <span>📄</span>
+        <div>Applications</div>
+      </a>
+      <a href="{% url 'admin:portal_booking_changelist' %}" class="tat-menu-item">
+        <span>🛎️</span>
+        <div>Bookings</div>
+      </a>
+      <a href="{% url 'admin:portal_certificate_changelist' %}" class="tat-menu-item">
+        <span>📜</span>
+        <div>Certificates</div>
+      </a>
+      <a href="{% url 'admin:portal_course_changelist' %}" class="tat-menu-item">
+        <span>🎓</span>
+        <div>Courses</div>
+      </a>
+      <a href="{% url 'admin:portal_inquiry_changelist' %}" class="tat-menu-item">
+        <span>✉️</span>
+        <div>Inquiries</div>
+      </a>
+      <a href="{% url 'admin:portal_lead_changelist' %}" class="tat-menu-item">
+        <span>📌</span>
+        <div>Leads</div>
+      </a>
+      <a href="{% url 'admin:portal_payment_changelist' %}" class="tat-menu-item">
+        <span>💰</span>
+        <div>Payments</div>
+      </a>
+      <a href="{% url 'admin:portal_resource_changelist' %}" class="tat-menu-item">
+        <span>📚</span>
+        <div>Resources</div>
+      </a>
+    </div>
+  </aside>
+  <main class="tat-content">
+    {{ block.super }}
+  </main>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sidebarSearch = document.getElementById('sidebarSearch');
+    const sidebarItems = document.querySelectorAll('.tat-menu-item');
+
+    sidebarSearch?.addEventListener('input', function () {
+      const query = this.value.toLowerCase();
+      sidebarItems.forEach(item => {
+        const label = item.textContent.trim().toLowerCase();
+        item.style.display = label.includes(query) ? 'grid' : 'none';
+      });
+    });
+
+    document.getElementById('sidebarToggle')?.addEventListener('click', function () {
+      document.querySelector('.tat-sidebar')?.classList.toggle('collapsed');
+    });
+  });
+</script>
+{% endblock %}

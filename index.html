@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talentime Business Solutions | Premium Medical Coding & Corporate Upskilling</title>
+  <meta name="description" content="Talentime Business Solutions is a professional talent development and workforce solutions company dedicated to empowering fresh graduates and aspiring professionals through specialized training and placement services.">
+  <meta name="keywords" content="talent development, workforce solutions, corporate training, medical coding, CPC, placement assistance">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/sarah.css">
+  
+  <script src="/assets/js/api-config.js"></script>
+  <!-- JavaScript Script (Deferred) -->
+  <script defer src="/assets/js/site.js"></script>
+</head>
+<body>
+
+  <!-- Sticky Transparent Header -->
+  <header class="site-header">
+    <div class="topbar container">
+      <div class="top-links">
+        <a href="tel:+916379112568">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+           +91 84285 60507
+        </a>
+        <a href="mailto:info@talentimebs.com">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          info@talentimebs.com
+        </a>
+      </div>
+      <div class="top-links">
+        <span style="color: rgba(2, 27, 77, 0.6); font-weight: 500;">Authorized Training Center</span>
+      </div>
+    </div>
+    
+    <nav class="container mainnav" aria-label="Main Navigation">
+      <a class="brand" href="/">
+        <img src="/assets/images/logo.png" alt="Talentime Business Solutions Logo" style="height: 80px; width: auto; max-width: 300px; object-fit: contain;">
+      </a>
+      
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#placement">Careers</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      
+      <div class="nav-actions">
+        <a class="nav-pill" href="/cart" aria-label="Shopping Cart">0</a>
+        <div id="userMenu" style="display: none; position: relative;">
+          <button id="profileBtn" style="background: none; border: none; cursor: pointer; font-weight: 600; color: #2E8B57; padding: 8px 14px; border-radius: 8px; border: 1px solid #ddd;">
+            <span id="userName">Profile</span>
+          </button>
+          <div id="dropdownMenu" style="display: none; position: absolute; right: 0; top: 100%; background: white; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 100; min-width: 180px; margin-top: 8px;">
+            <a href="/my-courses.html" style="display: block; padding: 12px 16px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">My Courses</a>
+            <a href="#editProfile" style="display: block; padding: 12px 16px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">Edit Profile</a>
+            <button onclick="logout()" style="display: block; width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; cursor: pointer; color: #e74c3c;">Logout</button>
+          </div>
+        </div>
+        <a class="nav-button" id="loginBtn" href="/customer/login.html">Login</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home">
+    
+    <!-- 1. Hero Banner Section -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-copy animate-on-scroll appear">
+          <div class="eyebrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            Creating Fresh Talent.
+          </div>
+          <h1>Delivering the Right People at the <span class="gradient-text">Right Time.</span></h1>
+          <p>At Talentime Business Solutions, we believe that talent is the foundation of every successful organization. Our vision is to create skilled, industry-ready professionals and connect them with reputed companies at the right time and in the right role.</p>
+          <div class="hero-buttons">
+            <a class="btn btn-gold" href="#courses">
+              Explore Programs
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a class="btn btn-outline" href="#contact">Schedule Consultation</a>
+          </div>
+        </div>
+        
+        <div class="hero-panel animate-on-scroll appear" style="display: flex; align-items: center; justify-content: center;">
+          <img src="/assets/images/cpc_banner.png" alt="Talentime Training" style="width: 100%; max-height: 500px; object-fit: cover; border-radius: 16px; box-shadow: 0 20px 40px rgba(0, 122, 120, 0.15); border: 2px solid rgba(0, 122, 120, 0.1);">
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. About Institute Section -->
+    <section id="about" class="about-section">
+      <div class="container about-grid">
+        <div class="about-visual animate-on-scroll">
+          <div class="about-image-wrapper">
+            <!-- Sleek Abstract SVG Illustrating Learning Systems strictly using brand colors -->
+            <svg viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid background -->
+              <path d="M 0,50 L 500,50 M 0,100 L 500,100 M 0,150 L 500,150 M 0,200 L 500,200 M 0,250 L 500,250 M 0,300 L 500,300 M 0,350 L 500,350" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <path d="M 50,0 L 50,400 M 100,0 L 100,400 M 150,0 L 150,400 M 200,0 L 200,400 M 250,0 L 250,400 M 300,0 L 300,400 M 350,0 L 350,400 M 400,0 L 400,400 M 450,0 L 450,400" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <!-- Abstract premium shapes -->
+              <circle cx="160" cy="180" r="100" fill="rgba(198, 146, 46, 0.2)"/>
+              <circle cx="340" cy="220" r="120" fill="rgba(0, 122, 120, 0.25)"/>
+              <path d="M250 80 L380 320 L120 320 Z" fill="rgba(2, 27, 77, 0.4)" stroke="#007A78" stroke-width="3"/>
+              <!-- Glowing Nodes -->
+              <circle cx="250" cy="80" r="8" fill="#C6922E"/>
+              <circle cx="380" cy="320" r="8" fill="#007A78"/>
+              <circle cx="120" cy="320" r="8" fill="#FFFFFF"/>
+              <!-- Wave path -->
+              <path d="M50 300 Q 150 150 250 300 T 450 300" stroke="#C6922E" stroke-width="4" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <div class="about-stats-overlay">
+            <div class="about-stats-number">98.4%</div>
+            <div class="about-stats-text">Success Rate</div>
+          </div>
+        </div>
+        
+        <div class="about-content animate-on-scroll">
+          <span class="section-tag">About Talentime Business Solutions</span>
+          <h2>Empowering Professionals & Bridging the Skill Gap</h2>
+          <p>Talentime Business Solutions is a professional talent development and workforce solutions company dedicated to empowering fresh graduates and aspiring professionals through specialized training and placement services.</p>
+          <p>Our expertise spans multiple industries, including Healthcare, Engineering, Information Technology, Manufacturing, and Clinical Research.</p>
+          
+          <div class="about-features-list">
+            <div class="about-feature-item">
+              <div class="about-feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+              </div>
+              <div>
+                <div class="about-feature-title">Our Vision</div>
+                <div class="about-feature-desc">To create fresh talent and place the right candidate at the right time in reputed organizations, enabling career growth for individuals and business success for employers.</div>
+              </div>
+            </div>
+            
+            <div class="about-feature-item">
+              <div class="about-feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              </div>
+              <div>
+                <div class="about-feature-title">Our Mission</div>
+                <div class="about-feature-desc">Develop industry-ready professionals, bridge the skill gap, and support organizations in building high-performing teams.</div>
+              </div>
+            </div>
+          </div>
+          <p style="margin-top: 1rem; font-weight: 700; color: var(--teal);">Our commitment is simple: Upskill. Transform. Deployment.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Courses Grid Section -->
+    <section id="courses" class="courses-section">
+      <div class="container">
+        <div class="section-heading animate-on-scroll">
+          <span class="section-tag">Our Services & Programs</span>
+          <h2>Training & Development Programs</h2>
+          <p>We provide comprehensive training programs designed to make candidates industry-ready and enhance their career opportunities.</p>
+        </div>
+        
+        <!-- Category Filter -->
+        <div class="courses-filter animate-on-scroll">
+          <button class="filter-btn active" data-filter="all">All Tracks</button>
+          <button class="filter-btn" data-filter="Medical">Healthcare BPO</button>
+          <button class="filter-btn" data-filter="Technology">IT Software</button>
+          <button class="filter-btn" data-filter="Clinical">Clinical Research</button>
+          <button class="filter-btn" data-filter="Engineering">Engineering</button>
+        </div>
+        
+        <!-- Courses Cards Grid -->
+        <div class="cards-grid" id="coursesGrid">
+          
+          <!-- Course Card 1: CPC Medical Coding (Pre-populated Static Fallback & Dynamic Match) -->
+          <div class="course-card animate-on-scroll">
+            <div class="course-header">
+              <span class="course-badge">Medical Coding</span>
+            </div>
+            <h3>Certified Professional Coder (CPC)</h3>
+            <p class="course-description">Full CPC syllabus coverage including ICD-10-CM guidelines, CPT modifier structures, and HCPCS Level II compliance standards.</p>
+            <div class="course-meta">
+              <div class="meta-item">
+                <span class="meta-label">⏱️ Duration:</span>
+                <span class="meta-value">90 days</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">📋 Level:</span>
+                <span class="meta-value">Beginner to Pro</span>
+              </div>
+            </div>
+            <div class="course-highlights">
+              <div class="highlights-title">Key Highlights:</div>
+              <ul class="highlights-list">
+                <li>Mock Examinations & AAPC Vouchers</li>
+                <li>Anatomy & Medical Terminology Foundation</li>
+                <li>Weekly Doubt Clearing Webinars</li>
+              </ul>
+            </div>
+            <div class="course-actions">
+              <button class="btn-apply" onclick="viewCourseDetails('65b968600000000000000001')">Apply Now</button>
+              <button class="btn-learn-more" onclick="viewCourseDetails('65b968600000000000000001')">Learn More</button>
+            </div>
+          </div>
+
+          <!-- Course Card 2: Technology Track (Pre-populated Static Fallback) -->
+          <div class="course-card animate-on-scroll">
+            <div class="course-header">
+              <span class="course-badge">Technology</span>
+            </div>
+            <h3>Full Stack Enterprise Development</h3>
+            <p class="course-description">Architect complex applications using standard web infrastructures, database engines, and responsive client systems.</p>
+            <div class="course-meta">
+              <div class="meta-item">
+                <span class="meta-label">⏱️ Duration:</span>
+                <span class="meta-value">8 weeks</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">📋 Level:</span>
+                <span class="meta-value">Intermediate</span>
+              </div>
+            </div>
+            <div class="course-highlights">
+              <div class="highlights-title">Key Highlights:</div>
+              <ul class="highlights-list">
+                <li>Production Node.js & React architectures</li>
+                <li>NoSQL/SQL high-availability setups</li>
+                <li>CI/CD Deployment Pipelines</li>
+              </ul>
+            </div>
+            <div class="course-actions">
+              <button class="btn-apply" onclick="viewCourseDetails('65b968600000000000000002')">Apply Now</button>
+              <button class="btn-learn-more" onclick="viewCourseDetails('65b968600000000000000002')">Learn More</button>
+            </div>
+          </div>
+
+          <!-- Course Card 3: Data Science Track (Pre-populated Static Fallback) -->
+          <div class="course-card animate-on-scroll">
+            <div class="course-header">
+              <span class="course-badge">Data Science</span>
+            </div>
+            <h3>Advanced Machine Learning & Data</h3>
+            <p class="course-description">Master statistical modeling, custom neural architectures, data modeling algorithms, and streaming visualization suites.</p>
+            <div class="course-meta">
+              <div class="meta-item">
+                <span class="meta-label">⏱️ Duration:</span>
+                <span class="meta-value">10 weeks</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">📋 Level:</span>
+                <span class="meta-value">Advanced</span>
+              </div>
+            </div>
+            <div class="course-highlights">
+              <div class="highlights-title">Key Highlights:</div>
+              <ul class="highlights-list">
+                <li>Python SciKit-Learn & TensorFlow projects</li>
+                <li>Distributed Spark computations</li>
+                <li>Comprehensive Capstone Projects</li>
+              </ul>
+            </div>
+            <div class="course-actions">
+              <button class="btn-apply" onclick="viewCourseDetails('65b968600000000000000004')">Apply Now</button>
+              <button class="btn-learn-more" onclick="viewCourseDetails('65b968600000000000000004')">Learn More</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Certifications Showcase Section -->
+    <section id="certifications" class="certifications-section">
+      <div class="container">
+        <div class="section-heading animate-on-scroll">
+          <span class="section-tag">Elite Affiliations</span>
+          <h2>Accredited Professional Pathways</h2>
+          <p>Our program frameworks are certified by leading global licensing boards, guaranteeing credential integrity and commercial recognition.</p>
+        </div>
+        
+        <div class="certs-grid animate-on-scroll">
+          <div class="cert-card glass-card">
+            <div class="cert-badge">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3>AAPC Compliance</h3>
+            <p>Direct preparation for AAPC certifications, containing comprehensive exam preparation materials and practice tests.</p>
+          </div>
+          
+          <div class="cert-card glass-card">
+            <div class="cert-badge">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <h3>Enterprise Partners</h3>
+            <p>Designed with input from global tech consultants and healthcare RCM vendors to reflect modern job expectations.</p>
+          </div>
+          
+          <div class="cert-card glass-card">
+            <div class="cert-badge">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            </div>
+            <h3>Global Recognition</h3>
+            <p>Diplomas and certifications recognized internationally across major healthcare systems and cloud consultancies.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Placement Assistance Section -->
+    <section id="placement" class="placement-section">
+      <div class="container">
+        <div class="section-heading animate-on-scroll">
+          <span class="section-tag">Placement Drive</span>
+          <h2>Launch Your Corporate Career</h2>
+          <p>Our dedicated placement cell links talented graduates directly with global system integrators and healthcare leaders.</p>
+        </div>
+        
+        <div class="placement-stats-row animate-on-scroll">
+          <div class="placement-stat-card">
+            <div class="placement-stat-number">250+</div>
+            <div class="placement-stat-label">Hiring Partners</div>
+          </div>
+          <div class="placement-stat-card">
+            <div class="placement-stat-number">6.8 LPA</div>
+            <div class="placement-stat-label">Average Package</div>
+          </div>
+          <div class="placement-stat-card">
+            <div class="placement-stat-number">95%</div>
+            <div class="placement-stat-label">Placement Rate</div>
+          </div>
+          <div class="placement-stat-card">
+            <div class="placement-stat-number">35%</div>
+            <div class="placement-stat-label">Avg. Salary Hike</div>
+          </div>
+        </div>
+        
+        <div class="placement-split animate-on-scroll">
+          <div class="placement-benefits">
+            <h3>Career Development Support</h3>
+            <ul class="placement-benefits-list" style="list-style-type: disc; padding-left: 20px; line-height: 1.8; color: var(--royal-navy);">
+              <li>Resume Building</li>
+              <li>Interview Preparation</li>
+              <li>Technical Assessment Guidance</li>
+              <li>Industry Mentorship</li>
+              <li>Job Placement Support</li>
+              <li>Career Development Counseling</li>
+            </ul>
+          </div>
+          
+          <div class="placement-visual animate-on-scroll">
+            <h4>Ready to step into your next role?</h4>
+            <p>Our exclusive placement cell runs weekly recruitment drives, coordinates directly with human resource directors, and supports you until you secure a professional offer letter.</p>
+            <div class="placement-quote">
+              "Thanks to Talentime Academy's mock drives and technical syllabus, I cleared my CPC exam on the first attempt and joined a leading medical coding enterprise within weeks."
+            </div>
+            <p style="margin-top: 1.5rem; font-weight: 700; font-size: 0.9rem; color: var(--gold);">— Sarah Miller, CPC (Talentime Graduate)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Student Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+      <div class="container">
+        <div class="section-heading animate-on-scroll">
+          <span class="section-tag">Alumni Feedback</span>
+          <h2>What Our Students Say</h2>
+          <p>Real feedback from ambitious coders, technology builders, and enterprise partners who redefined their careers with us.</p>
+        </div>
+        
+        <div class="testimonials-grid animate-on-scroll">
+          
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card">
+            <div class="test-rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <p class="test-quote">"The 90-day CPC medical coding track was incredible. The daily case discussions, anatomical details, and practice papers gave me the security to pass my AAPC certification smoothly."</p>
+            <div class="test-profile">
+              <div class="test-avatar">AM</div>
+              <div class="test-info">
+                <h4>Aditya Mishra</h4>
+                <p>Medical Coder, RCM Solutions</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card">
+            <div class="test-rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <p class="test-quote">"The technology curricula are built for real production engineering. I learned design principles, database architecture, and cloud deployment pathways that I use daily at my engineering job."</p>
+            <div class="test-profile">
+              <div class="test-avatar">RK</div>
+              <div class="test-info">
+                <h4>Rajesh Kumar</h4>
+                <p>Cloud Engineer, Tech Consultants</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card">
+            <div class="test-rating">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <p class="test-quote">"Outstanding corporate training. Our data analytics team upskilled in record time. The customized syllabus, live laboratories, and structured checkpoints fit perfectly in our budget."</p>
+            <div class="test-profile">
+              <div class="test-avatar">SL</div>
+              <div class="test-info">
+                <h4>Sarah Lawson</h4>
+                <p>HR Director, FinData Group</p>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Industry Partners Section -->
+    <section class="partners-section">
+      <div class="container">
+        <div class="section-heading animate-on-scroll">
+          <span class="section-tag" style="background: rgba(0, 122, 120, 0.06); border-color: rgba(0, 122, 120, 0.2); color: var(--teal);">Hiring Network</span>
+          <h2>Approved Hiring Partnerships</h2>
+        </div>
+        
+        <div class="partners-logos-container animate-on-scroll">
+          <div class="partners-slider">
+            
+            <!-- Partner 1 -->
+            <div class="partner-logo-item">
+              <svg width="140" height="38" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="200" height="60" rx="10" fill="rgba(2, 27, 77, 0.05)"/>
+                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Outfit" font-weight="bold" font-size="20" fill="#021B4D">CognitiveRCM</text>
+              </svg>
+            </div>
+            
+            <!-- Partner 2 -->
+            <div class="partner-logo-item">
+              <svg width="140" height="38" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="200" height="60" rx="10" fill="rgba(2, 27, 77, 0.05)"/>
+                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Outfit" font-weight="bold" font-size="20" fill="#021B4D">ApexHealth</text>
+              </svg>
+            </div>
+            
+            <!-- Partner 3 -->
+            <div class="partner-logo-item">
+              <svg width="140" height="38" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="200" height="60" rx="10" fill="rgba(2, 27, 77, 0.05)"/>
+                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Outfit" font-weight="bold" font-size="20" fill="#021B4D">GlobalCoding</text>
+              </svg>
+            </div>
+            
+            <!-- Partner 4 -->
+            <div class="partner-logo-item">
+              <svg width="140" height="38" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="200" height="60" rx="10" fill="rgba(2, 27, 77, 0.05)"/>
+                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Outfit" font-weight="bold" font-size="20" fill="#021B4D">CloudVertex</text>
+              </svg>
+            </div>
+            
+            <!-- Partner 5 -->
+            <div class="partner-logo-item">
+              <svg width="140" height="38" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="200" height="60" rx="10" fill="rgba(2, 27, 77, 0.05)"/>
+                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Outfit" font-weight="bold" font-size="20" fill="#021B4D">NovaRCM</text>
+              </svg>
+            </div>
+            
+            <!-- Duplicate for Infinite Scroll -->
+            <div class="partner-logo-item">
+              <svg width="140" height="38" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="200" height="60" rx="10" fill="rgba(2, 27, 77, 0.05)"/>
+                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Outfit" font-weight="bold" font-size="20" fill="#021B4D">CognitiveRCM</text>
+              </svg>
+            </div>
+            <div class="partner-logo-item">
+              <svg width="140" height="38" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="200" height="60" rx="10" fill="rgba(2, 27, 77, 0.05)"/>
+                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Outfit" font-weight="bold" font-size="20" fill="#021B4D">ApexHealth</text>
+              </svg>
+            </div>
+            <div class="partner-logo-item">
+              <svg width="140" height="38" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="200" height="60" rx="10" fill="rgba(2, 27, 77, 0.05)"/>
+                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Outfit" font-weight="bold" font-size="20" fill="#021B4D">GlobalCoding</text>
+              </svg>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Contact Form Section -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="section-heading animate-on-scroll">
+          <span class="section-tag">Get in Touch</span>
+          <h2>Connect With Our Counselors</h2>
+          <p>Have questions about program structure, payment installments, or certification scheduling? Speak with us today.</p>
+        </div>
+        
+        <div class="contact-layout animate-on-scroll">
+          
+          <!-- Contact Form side -->
+          <div class="contact-form-side">
+            <div class="form-card">
+              <h3>Inquire Today</h3>
+              <form id="contact-form">
+                <div class="form-field">
+                  <label for="name">Full Name</label>
+                  <input id="name" name="name" type="text" placeholder="e.g. John Miller" required>
+                </div>
+                <div class="form-field">
+                  <label for="email">Work Email</label>
+                  <input id="email" name="email" type="email" placeholder="e.g. john@corporate.com" required>
+                </div>
+                <div class="form-field">
+                  <label for="phone">Phone Number</label>
+                  <input id="phone" name="phone" type="tel" placeholder="e.g. +91 9790129449">
+                </div>
+                <div class="form-field">
+                  <label for="subject">Program of Interest</label>
+                  <select id="subject" name="subject" required style="background-image: none;">
+                    <option value="CPC Medical Coding">CPC - Certified Professional Coder</option>
+                    <option value="Enterprise Development">Full Stack Enterprise Development</option>
+                    <option value="Data Science">Advanced Machine Learning & Data</option>
+                    <option value="General Inquiry">General Corporate Training Consult</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="message">Detailed Inquiry Message</label>
+                  <textarea id="message" name="message" placeholder="Provide background context of your training needs..." required></textarea>
+                </div>
+                <div class="form-actions">
+                  <button class="btn btn-gold" type="submit">Submit Request</button>
+                  <span id="contact-status" class="form-status"></span>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+          <!-- Contact Details side -->
+          <div class="contact-info-side">
+            <div class="contact-info-block">
+              <h3>Office Information</h3>
+              <div class="info-details">
+                
+                <div class="info-item">
+                  <div class="info-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  </div>
+                  <div class="info-text">
+                    <h4>Head Office Address</h4>
+                    <p>address, Trichy – 6200, TN, India</p>
+                  </div>
+                </div>
+                
+                <div class="info-item">
+                  <div class="info-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  </div>
+                  <div class="info-text">
+                    <h4>Corporate Office Address</h4>
+                    <p>address , Trichy - 6200, TN, India</p>
+                  </div>
+                </div>
+                
+                <div class="info-item">
+                  <div class="info-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  </div>
+                  <div class="info-text">
+                    <h4>Telephone Support</h4>
+                    <p><a href="tel:+91 84285 60507"> +91 84285 60507</a> / <a href="tel: +91 84285 60507">+91 84285 60507</a></p>
+                  </div>
+                </div>
+                
+                <div class="info-item">
+                  <div class="info-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </div>
+                  <div class="info-text">
+                    <h4>Direct Email Desk</h4>
+                    <p><a href="mailto:info@talentimebs.com">info@talentimebs.com</a></p>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+    
+  </main>
+
+  <!-- 9. Footer Section -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <img src="/assets/images/logo.png" alt="Talentime Business Solutions Logo" style="height: 70px; width: auto; max-width: 250px; object-fit: contain; filter: brightness(0) invert(1);">
+        </div>
+        <p>At Talentime Business Solutions, we are committed to creating a skilled workforce that meets industry expectations and contributes to organizational success. Through quality training, talent development, and strategic placement services, we help individuals transform their careers and organizations strengthen their teams.</p>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Corporate Programs</h4>
+        <ul class="footer-links">
+          <li><a href="#courses">CPC Medical Coding</a></li>
+          <li><a href="#courses">Full Stack Development</a></li>
+          <li><a href="#courses">Data Intelligence & ML</a></li>
+          <li><a href="#courses">Executive Upskilling</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Quick Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="#home">Home Banner</a></li>
+          <li><a href="#about">About Institute</a></li>
+          <li><a href="#placement">Careers Desk</a></li>
+          <li><a href="#testimonials">Student Reviews</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Desk Information</h4>
+        <ul class="footer-contact-list">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <a href="tel:">+91 84285 60507</a>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <a href="tel:+91 84285 60507">+91 84285 60507</a>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <a href="mailto:info@talentimebs.com">info@talentimebs.com</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="container footer-bottom">
+      <div class="footer-note">
+        &copy; 2026 Talentime Business Solutions. All rights reserved.
+      </div>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Framework</a>
+        <a href="#">Terms & Guidelines</a>
+        <a href="#">Security Statement</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll-Driven Animation Script (micro-helper) -->
+  <script>
+    // ===== SCROLL ANIMATION =====
+    document.addEventListener("DOMContentLoaded", function () {
+      const scrollElements = document.querySelectorAll(".animate-on-scroll");
+      
+      const elementInView = (el, dividend = 1) => {
+        const elementTop = el.getBoundingClientRect().top;
+        return (
+          elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+        );
+      };
+      
+      const displayScrollElement = (element) => {
+        element.classList.add("appear");
+      };
+      
+      const hideScrollElement = (element) => {
+        element.classList.remove("appear");
+      };
+      
+      const handleScrollAnimation = () => {
+        scrollElements.forEach((el) => {
+          if (elementInView(el, 1.15)) {
+            displayScrollElement(el);
+          }
+        });
+      };
+      
+      window.addEventListener("scroll", () => {
+        handleScrollAnimation();
+      });
+      
+      // Trigger initially on load
+      handleScrollAnimation();
+    });
+  </script>
+</body>
+</html>

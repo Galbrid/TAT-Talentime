@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Courses | Talentime Academy</title>
+  <link rel="stylesheet" href="/assets/css/sarah.css" />
+  <script src="/assets/js/api-config.js"></script>
+  <style>
+    .my-courses-container { max-width: 1000px; margin: 0 auto; }
+    .courses-grid { display: grid; gap: 24px; margin-top: 32px; }
+    .course-enrollment-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 16px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .course-enrollment-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); }
+    .course-info h3 { margin: 0 0 8px 0; font-size: 1.2rem; color: #1a1a1a; }
+    .course-info p { margin: 4px 0; color: #666; font-size: 0.95rem; }
+    .status-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+    .status-badge.pending { background: #fff3cd; color: #856404; }
+    .status-badge.active { background: #d4edda; color: #155724; }
+    .status-badge.denied { background: #f8d7da; color: #721c24; }
+    .filters { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 10px 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .filter-btn.active { background: #2E8B57; color: white; border-color: #2E8B57; }
+    .empty-state { text-align: center; padding: 48px 24px; color: #666; }
+    .empty-state svg { width: 64px; height: 64px; margin-bottom: 16px; opacity: 0.5; }
+    @media (max-width: 768px) {
+      .course-enrollment-card { grid-template-columns: 1fr; }
+      .filters { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Navigation -->
+  <header class="site-header">
+    <div class="topbar container">
+      <a class="brand" href="/">
+        <img src="/assets/images/logo.png" alt="Talentime Business Solutions Logo" style="height: 60px; width: auto; max-width: 250px; object-fit: contain;">
+      </a>
+      <div class="top-links">
+        <a class="top-link" href="tel:+91 1234567890">+91 1234567890</a>
+        <a class="top-link" href="mailto:originjai@gmail.com">originjai@gmail.com</a>
+      </div>
+    </div>
+    <nav class="container mainnav">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/list/course">Course List</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-pill" href="/cart">0</a>
+        <div id="userMenu" style="position: relative;">
+          <button id="profileBtn" style="background: none; border: none; cursor: pointer; font-weight: 600; color: #2E8B57; padding: 8px 14px; border-radius: 8px; border: 1px solid #ddd;">
+            <span id="userName">Profile</span>
+          </button>
+          <div id="dropdownMenu" style="display: none; position: absolute; right: 0; top: 100%; background: white; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 100; min-width: 180px; margin-top: 8px;">
+            <a href="/my-courses.html" style="display: block; padding: 12px 16px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">My Courses</a>
+            <a href="#editProfile" style="display: block; padding: 12px 16px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">Edit Profile</a>
+            <button onclick="logout()" style="display: block; width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; cursor: pointer; color: #e74c3c;">Logout</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container page-section">
+    <div class="my-courses-container">
+      <div>
+        <h1 style="margin: 0 0 8px 0;">My Courses</h1>
+        <p style="color: #666; margin-top: 0;">View and manage your course enrollments</p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="filters">
+        <button class="filter-btn active" onclick="filterCourses('all')">All</button>
+        <button class="filter-btn" onclick="filterCourses('pending')">Pending</button>
+        <button class="filter-btn" onclick="filterCourses('active')">Active</button>
+        <button class="filter-btn" onclick="filterCourses('denied')">Denied</button>
+      </div>
+
+      <!-- Courses Grid -->
+      <div class="courses-grid" id="coursesContainer">
+        <div class="empty-state">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747S17.5 6.253 12 6.253z" /></svg>
+          <h3>No courses found</h3>
+          <p>You haven't enrolled in any courses yet. <a href="/list/course" style="color: #2E8B57; text-decoration: none; font-weight: 600;">Browse courses</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer container" style="margin-top: 60px;">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-title">Contact Us</p>
+        <a href="tel:+91 84285 60507">+91 84285 60507</a>
+        <a href="mailto:info@talentime.com">info@talentime.com</a>
+      </div>
+      <div>
+        <p class="footer-title">Quick Links</p>
+        <a href="/">Home</a>
+        <a href="/list/course">Course List</a>
+        <a href="/contact">Admissions Desk</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Talentime Business Solutions. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const DJANGO_API = 'http://localhost:8000/api/courses';
+    let allCourses = [];
+
+    // ===== AUTH FUNCTIONS =====
+    function getAuthToken() {
+      return localStorage.getItem('token');
+    }
+
+    function getUser() {
+      return JSON.parse(localStorage.getItem('user') || '{}');
+    }
+
+    function isLoggedIn() {
+      return !!getAuthToken();
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Lax";
+      window.location.href = '/';
+    }
+
+    function setupProfileMenu() {
+      const user = getUser();
+      const userName = document.getElementById('userName');
+      const profileBtn = document.getElementById('profileBtn');
+      const dropdownMenu = document.getElementById('dropdownMenu');
+
+      if (isLoggedIn() && user.first_name) {
+        userName.textContent = `${user.first_name} ${user.last_name || ''}`.trim();
+        
+        profileBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.addEventListener('click', () => {
+          dropdownMenu.style.display = 'none';
+        });
+      }
+    }
+
+    // ===== LOAD COURSES =====
+    async function loadMyCourses() {
+      try {
+        const response = await fetch(`${DJANGO_API}/enrollments/my_courses/`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${getAuthToken()}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
+        allCourses = await response.json();
+        displayCourses('all');
+      } catch (error) {
+        console.error('Error loading courses:', error);
+        document.getElementById('coursesContainer').innerHTML = '<div class="empty-state"><h3>Error loading courses</h3></div>';
+      }
+    }
+
+    function displayCourses(filter) {
+      const container = document.getElementById('coursesContainer');
+      
+      let filtered = allCourses;
+      if (filter !== 'all') {
+        filtered = allCourses.filter(c => c.status === filter);
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="empty-state"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747S17.5 6.253 12 6.253z" /></svg><h3>No ' + (filter !== 'all' ? filter : '') + ' courses</h3></div>';
+        return;
+      }
+
+      container.innerHTML = filtered.map(course => `
+        <div class="course-enrollment-card">
+          <div class="course-info">
+            <h3>${course.course_name}</h3>
+            <p><strong>Enrolled:</strong> ${new Date(course.enrolled_date).toLocaleDateString()}</p>
+            <p style="margin-top: 12px;"><span class="status-badge ${course.status}">${course.status}</span></p>
+          </div>
+          <div style="text-align: right;">
+            <a href="/course/detail.html?courseId=${course.course}" style="display: inline-block; padding: 12px 20px; background: #2E8B57; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.2s;" onmouseover="this.style.background='#1f6941'" onmouseout="this.style.background='#2E8B57'">View Details</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterCourses(status) {
+      // Update active button
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      displayCourses(status);
+    }
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!isLoggedIn()) {
+        window.location.href = '/customer/login.html?redirect=' + encodeURIComponent(window.location.pathname);
+      }
+      
+      setupProfileMenu();
+      loadMyCourses();
+    });
+  </script>
+</body>
+</html>

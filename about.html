@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | Talentime </title>
+  <link rel="stylesheet" href="/assets/css/sarah.css" />
+  <script src="/assets/js/api-config.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="topbar container">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/assets/images/logo.png" alt="Talentime Academy logo" />
+      </a>
+      <div class="top-links">
+        <a href="tel:+91 1234567890">+91 1234567890</a>
+        <a href="tel:+91 1234567890">+91 1234567890</a>
+        <a class="top-link" href="mailto:info@talentimebs.com">info@talentimebs.com</a>
+      </div>
+    </div>
+    <nav class="container mainnav">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/list/course">Course List</a></li>
+        <li><a href="/list/book">Book List</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-pill" href="/cart">0</a>
+        <div id="userMenu" style="display: none; position: relative;">
+          <button id="profileBtn" style="background: none; border: none; cursor: pointer; font-weight: 600; color: #2E8B57; padding: 8px 14px; border-radius: 8px; border: 1px solid #ddd; display: flex; align-items: center; gap: 4px;">
+            <span id="userName">Profile</span>
+            <span style="font-size: 0.8rem;">▼</span>
+          </button>
+          <div id="dropdownMenu" style="display: none; position: absolute; right: 0; top: 100%; background: white; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 1000; min-width: 180px; margin-top: 8px;">
+            <a href="/my-courses.html" style="display: block; padding: 12px 16px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">My Courses</a>
+            <a href="/dashboard" style="display: block; padding: 12px 16px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">Edit Profile</a>
+            <button onclick="logout()" style="display: block; width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; cursor: pointer; color: #e74c3c; font-weight: 600; font-family: inherit;">Logout</button>
+          </div>
+        </div>
+        <a class="nav-button" id="loginBtn" href="/customer/login.html">Login</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container page-section">
+    <header class="section-heading">
+      <span class="section-tag">About Talentime Academy</span>
+      <h2>Premier medical coding training with examination and career support.</h2>
+    </header>
+    <p class="page-intro">Founded in 2021, Talentime Academy of Medical Coding provides specialized training for students and working professionals seeking certification in medical coding. Our curriculum is built around the CPC certification standards, real-world clinical case studies, and practical skills for healthcare revenue cycle management.</p>
+
+    <section class="page-layout">
+      <div class="course-card">
+        <h3>Our mission</h3>
+        <p>To equip learners with the knowledge, confidence, and exam readiness needed to succeed as certified medical coders.</p>
+      </div>
+      <div class="course-card">
+        <h3>Why choose us</h3>
+        <p>We focus on live support, structured practice, and certification alignment so students can clear exams and secure coding roles faster.</p>
+      </div>
+      <div class="course-card">
+        <h3>Our promise</h3>
+        <p>Clear guidance, updated course materials, and dedicated instructor help across the complete certification journey.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-title">Contact</p>
+        <a href="tel:+91 1234567890">+91 1234567890</a>
+        <a href="tel:+91 1234567890">+91 1234567890</a>
+        <a href="mailto:info@talentimebs.com">info@talentimebs.com</a>
+      </div>
+      <div>
+        <p class="footer-title">Useful Links</p>
+        <a href="/">Home</a>
+        <a href="/list/course">Course List</a>
+        <a href="/contact">Contact Us</a>
+      </div>
+      <div>
+        <p class="footer-title">Address</p>
+        <p>No 50,Madurai main road, Trichy – 620008</p>
+        <p>50,jaffersha street Main Rd, Trichy - 620008</p>
+      </div>
+    </div>
+    <p class="footer-note">© 2026 TALENTTIME ACADEMY OF MEDICAL CODING</p>
+  </footer>
+</body>
+</html>

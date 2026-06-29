@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course Details | Talentime Academy</title>
+  <link rel="stylesheet" href="/assets/css/sarah.css" />
+  <script src="/assets/js/api-config.js"></script>
+  <style>
+    .loader { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(46, 139, 87, 0.2); border-radius: 50%; border-top-color: #2E8B57; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .status-badge { display: inline-block; padding: 6px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; background: rgba(234, 247, 240, 0.8); color: #2E8B57; }
+    .status-badge.pending { background: #fff3cd; color: #856404; }
+    .status-badge.active { background: #d4edda; color: #155724; }
+    .status-badge.denied { background: #f8d7da; color: #721c24; }
+  </style>
+</head>
+<body>
+  <!-- Header Navigation -->
+  <header class="site-header">
+    <div class="topbar container">
+      <a class="brand" href="/">
+        <img src="/assets/images/logo.png" alt="Talentime Business Solutions Logo" style="height: 60px; width: auto; max-width: 250px; object-fit: contain;">
+      </a>
+      <div class="top-links">
+        <a class="top-link" href="tel:+91 1234567890">+91 1234567890</a>
+        <a class="top-link" href="mailto:originjai@gmail.com">originjai@gmail.com</a>
+      </div>
+    </div>
+    <nav class="container mainnav">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/list/course">Course List</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-pill" href="/cart">0</a>
+        <div id="userMenu" style="display: none; position: relative;">
+          <button id="profileBtn" style="background: none; border: none; cursor: pointer; font-weight: 600; color: #2E8B57; padding: 8px 14px; border-radius: 8px; border: 1px solid #ddd;">
+            <span id="userName">Profile</span>
+          </button>
+          <div id="dropdownMenu" style="display: none; position: absolute; right: 0; top: 100%; background: white; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 100; min-width: 180px; margin-top: 8px;">
+            <a href="/dashboard" style="display: block; padding: 12px 16px; text-decoration: none; color: #333; border-bottom: 1px solid #eee; hover: background: #f5f5f5;">My Courses</a>
+            <a href="#editProfile" style="display: block; padding: 12px 16px; text-decoration: none; color: #333; hover: background: #f5f5f5;">Edit Profile</a>
+            <button onclick="logout()" style="display: block; width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; cursor: pointer; color: #e74c3c;">Logout</button>
+          </div>
+        </div>
+        <a class="nav-button" id="loginBtn" href="/customer/login.html" style="display: none;">Login</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Course Content -->
+  <main class="container page-section" id="course-container">
+    <article class="course-detail">
+      <div class="course-card">
+        <p class="eyebrow" id="courseCategory">Class: <span class="loader"></span></p>
+        <h1 id="courseName">Loading Course Details...</h1>
+        <p class="course-price" id="coursePrice">₹0</p>
+        
+        <ul class="course-meta">
+          <li><strong>⏱️ Duration:</strong> <span id="courseDuration">N/A</span></li>
+          <li><strong>📋 Level:</strong> <span id="courseLevel">Beginner</span></li>
+          <li><strong>👨‍🏫 Instructor:</strong> <span id="courseInstructor">TBD</span></li>
+          <li><strong>📍 Status:</strong> <span id="enrollmentStatus" class="status-badge pending">Not Enrolled</span></li>
+        </ul>
+        
+        <h3>About the Program</h3>
+        <p id="courseDescription">Please wait while course details are retrieved from the server.</p>
+        
+        <h3>Curriculum & Syllabus</h3>
+        <p id="courseSyllabus">Details coming soon...</p>
+        
+        <button class="btn btn-primary" id="applyBtn" style="margin-top: 24px; padding: 16px 32px; border: none; border-radius: 12px; font-weight: 700; width: 100%; max-width: 300px; cursor: pointer;">
+          Apply & Enroll Now
+        </button>
+      </div>
+
+      <!-- Course Highlights Sidebar -->
+      <aside class="course-card course-summary">
+        <div class="course-preview-image" style="background: linear-gradient(135deg, var(--teal), var(--navy)); height: 200px; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white;">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        </div>
+        <div>
+          <h2>What You Get</h2>
+          <ul class="highlights-list" id="courseHighlights" style="margin-top: 15px; padding-left: 20px;">
+            <li>Standard practice papers</li>
+            <li>Weekly check-ins</li>
+          </ul>
+        </div>
+        <div class="home-highlight" style="margin-top: 20px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+          <h3>Admissions Support</h3>
+          <p>Contact our enrollment directors for custom study plans and batch schedules.</p>
+          <a class="card-link" href="/contact" style="color: var(--teal); font-weight: 700;">Connect with Counselors →</a>
+        </div>
+      </aside>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer container">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-title">Contact Us</p>
+        <a href="tel:+91 84285 60507">+91 84285 60507</a>
+        <a href="mailto:info@talentime.com">info@talentime.com</a>
+      </div>
+      <div>
+        <p class="footer-title">Quick Links</p>
+        <a href="/">Home</a>
+        <a href="/list/course">Course List</a>
+        <a href="/contact">Admissions Desk</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Talentime Business Solutions. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== COURSE DETAILS LOADING & INITIALIZATION =====
+    document.addEventListener('DOMContentLoaded', async () => {
+      const params = new URLSearchParams(window.location.search);
+      let courseId = params.get('courseId');
+      if (!courseId) {
+        const pathParts = window.location.pathname.split('/');
+        courseId = pathParts[pathParts.length - 1];
+      }
+
+      if (!courseId || courseId.length < 1) {
+        showError('Invalid course parameter.');
+        return;
+      }
+
+      const staticCourses = {
+        '65b968600000000000000001': {
+          id: '65b968600000000000000001',
+          name: 'Basic Medical Coding',
+          category_name: 'Medical Courses',
+          price: 12000,
+          duration: '90 days',
+          level: 'Beginner',
+          instructor: 'Talentime Expert',
+          description: 'Fundamental training in medical coding principles and documentation standards.',
+          syllabus: 'Anatomy, Medical Terminology, Basic ICD-10-CM guidelines.',
+          highlights: ['Sample Chart and follow up', 'Anatomy & Medical Terminology Foundation', 'Online Mode', '100% Placement Drive']
+        },
+        '65b968600000000000000002': {
+          id: '65b968600000000000000002',
+          name: 'Masters in Medical Coding Program',
+          category_name: 'Medical Courses',
+          price: 18500,
+          duration: '90 days',
+          level: 'Advanced',
+          instructor: 'Senior Coding Expert',
+          description: 'Masters in Medical Coding is a specialized professional course that develops advanced coding skills for accurately interpreting and coding complex medical diagnoses, procedures, and healthcare services using ICD-10-CM, CPT, and HCPCS coding systems. The program prepares learners for senior coding positions in hospitals and healthcare organizations.',
+          syllabus: 'Advanced interpreting, complex procedures, specialized systems.',
+          highlights: ['In-depth industry knowledge', 'Senior coding preparation', 'Real Case Document reviews', 'Career Placement Support']
+        },
+        '65b968600000000000000004': {
+          id: '65b968600000000000000004',
+          name: 'Certified Professional Course (CPC)',
+          category_name: 'Medical Courses',
+          price: 16000,
+          duration: '90 days',
+          level: 'Professional',
+          instructor: 'AAPC Certified Trainer',
+          description: 'The CPC (Certified Professional Coder) Course is a globally recognized medical coding program that provides comprehensive training in ICD-10-CM, CPT, and HCPCS coding systems. Designed to prepare students for the CPC certification exam.',
+          syllabus: 'Diagnostic Rules, Code Assignment, Specialty Case Studies.',
+          highlights: ['AAPC Cert Prep', 'Coding Accuracy Drills', 'Documentation Best Practices', 'AAPC Exam Support']
+        }
+      };
+
+      let courseData = null;
+      try {
+        const response = await fetch(`/api/courses/${courseId}`);
+        if (response.ok) {
+          courseData = await response.json();
+        }
+      } catch (err) {
+        console.warn('Backend fetch failed, falling back to static data.');
+      }
+
+      if (!courseData) {
+        courseData = staticCourses[courseId] || {
+          id: courseId,
+          name: 'Talentime Training Program',
+          category_name: 'Training & Development',
+          price: 15000,
+          duration: '90 days',
+          level: 'Professional',
+          instructor: 'Industry Expert',
+          description: 'Comprehensive professional training designed to make candidates industry-ready and enhance their career opportunities.',
+          syllabus: 'Practical, job-oriented training aligned with core qualifications and competencies.',
+          highlights: ['Industry-Oriented Training', 'Experienced Trainers', 'Placement Assistance', 'Career Growth Opportunities']
+        };
+      }
+
+      renderCourseDetails(courseData);
+      checkEnrollmentStatus(courseId);
+    });
+
+    function showError(msg) {
+      document.getElementById('course-container').innerHTML = `
+        <div class="course-card" style="text-align: center; padding: 60px 20px; max-width: 600px; margin: 40px auto; box-shadow: 0 10px 30px rgba(3,59,77,0.08); border-radius: 20px; border: 1px solid rgba(0,122,120,0.1);">
+          <h2 style="color: var(--navy); margin-bottom: 12px;">Oops!</h2>
+          <p style="color: var(--royal-navy); margin-bottom: 20px;">${msg}</p>
+          <a class="btn btn-primary" href="/" style="display: inline-block; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 700; color: white;">Back to Homepage</a>
+        </div>
+      `;
+    }
+
+    function renderCourseDetails(course) {
+      document.getElementById('courseName').textContent = course.name;
+      document.getElementById('courseCategory').innerHTML = 'Class: <strong>' + (course.category_name || 'General') + '</strong>';
+      document.getElementById('coursePrice').textContent = '₹' + parseFloat(course.price || 0).toLocaleString();
+      document.getElementById('courseDuration').textContent = course.duration || 'N/A';
+      document.getElementById('courseLevel').textContent = course.level || 'Beginner';
+      document.getElementById('courseInstructor').textContent = course.instructor || 'TBD';
+      document.getElementById('courseDescription').textContent = course.description || '';
+      document.getElementById('courseSyllabus').textContent = course.syllabus || 'Syllabus guidelines are dynamically provided during intake.';
+
+      // Parse highlights
+      let highlights = [];
+      try {
+        highlights = typeof course.highlights === 'string' ? JSON.parse(course.highlights || '[]') : (course.highlights || []);
+      } catch(e) {
+        highlights = [];
+      }
+
+      const highlightsList = document.getElementById('courseHighlights');
+      if (highlights && highlights.length > 0) {
+        highlightsList.innerHTML = highlights.map(h => `<li style="margin-bottom: 8px;">✔️ ${h}</li>`).join('');
+      } else {
+        highlightsList.innerHTML = '<li style="margin-bottom: 8px;">✔️ Complete certification preparation</li><li style="margin-bottom: 8px;">✔️ Guided placement checkpoints</li>';
+      }
+
+      // Bind apply action
+      document.getElementById('applyBtn').onclick = () => applyCourse(course.id || course._id);
+    }
+
+    async function checkEnrollmentStatus(courseId) {
+      if (!isLoggedIn()) return;
+
+      try {
+        const response = await fetch(`/api/courses/enrollments/my_courses/`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${getAuthToken()}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          const enrollments = await response.json();
+          const enrollment = enrollments.find(e => e.course === courseId || e.course_details?.id === courseId);
+          
+          if (enrollment) {
+            const statusEl = document.getElementById('enrollmentStatus');
+            statusEl.textContent = enrollment.status.charAt(0).toUpperCase() + enrollment.status.slice(1);
+            statusEl.className = `status-badge ${enrollment.status}`;
+            
+            if (enrollment.status === 'active' || enrollment.status === 'pending') {
+              document.getElementById('applyBtn').textContent = enrollment.status === 'active' ? 'Already Enrolled' : 'Application Pending';
+              document.getElementById('applyBtn').disabled = true;
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error checking enrollment:', error);
+      }
+    }
+  </script>
+  <script src="/assets/js/site.js"></script>
+</body>
+</html>

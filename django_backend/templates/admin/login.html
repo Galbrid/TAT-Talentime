@@ -1,0 +1,434 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block title %}Log in | TALENTIME{% endblock %}
+{% block bodyclass %}{{ block.super }} tat-login-body{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8fbf9 0%, #eef7f0 100%);
+    color: #1F2937;
+  }
+
+  .tat-login-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    min-height: 100vh;
+  }
+
+  .tat-login-side,
+  .tat-login-card-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+  }
+
+  .tat-login-side {
+    background: linear-gradient(180deg, #FFFFFF 0%, #EAF7F0 100%);
+  }
+
+  .tat-hero-panel {
+    max-width: 460px;
+    display: grid;
+    gap: 24px;
+  }
+
+  .tat-logo-mark {
+    width: 68px;
+    height: 68px;
+    border-radius: 18px;
+    background: #ffffff;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 20px 60px rgba(46, 139, 87, 0.08);
+  }
+
+  .tat-logo-mark img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+  }
+
+  .tat-hero-title {
+    margin: 0;
+    font-size: clamp(2.5rem, 2.2vw, 3.4rem);
+    line-height: 1.02;
+    color: #134E4A;
+  }
+
+  .tat-hero-subtitle {
+    margin: 0;
+    color: #4B5563;
+    font-size: 1rem;
+    max-width: 430px;
+  }
+
+  .tat-features {
+    display: grid;
+    gap: 14px;
+  }
+
+  .tat-feature {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: #ffffff;
+    border: 1px solid #DDEEE5;
+    border-radius: 18px;
+    padding: 18px 20px;
+    box-shadow: 0 20px 50px rgba(46, 139, 87, 0.06);
+  }
+
+  .tat-feature-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: #EAF7F0;
+    display: grid;
+    place-items: center;
+    color: #2E8B57;
+    font-size: 1.25rem;
+  }
+
+  .tat-feature-text {
+    display: grid;
+    gap: 4px;
+  }
+
+  .tat-feature-text strong {
+    font-size: 0.95rem;
+    color: #134E4A;
+  }
+
+  .tat-feature-text span {
+    font-size: 0.92rem;
+    color: #6B7280;
+  }
+
+  .tat-login-card-wrapper {
+    background: transparent;
+  }
+
+  .tat-login-card {
+    width: 100%;
+    max-width: 470px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(45, 130, 87, 0.12);
+    border-radius: 28px;
+    padding: 40px;
+    box-shadow: 0 40px 80px rgba(15, 69, 56, 0.08);
+    backdrop-filter: blur(22px);
+  }
+
+  .tat-login-card h2 {
+    margin: 0 0 8px;
+    font-size: 2rem;
+    color: #134E4A;
+  }
+
+  .tat-login-card p {
+    margin: 0 0 24px;
+    color: #4B5563;
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  .tat-login-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(234, 247, 240, 0.95);
+    color: #2E8B57;
+    font-weight: 700;
+    border: 1px solid #DDEEE5;
+  }
+
+  .tat-form-group {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .tat-form-group label {
+    font-size: 0.92rem;
+    color: #134E4A;
+    font-weight: 700;
+  }
+
+  .tat-form-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 18px;
+    border: 1px solid #DDEEE5;
+    background: #ffffff;
+    color: #1F2937;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .tat-form-group input:focus {
+    outline: none;
+    border-color: #2E8B57;
+    box-shadow: 0 0 0 4px rgba(46, 139, 87, 0.12);
+  }
+
+  .tat-password-wrap {
+    position: relative;
+  }
+
+  .tat-toggle-password {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #2E8B57;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .tat-remember-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .tat-remember-row label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #4B5563;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  .tat-remember-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #2E8B57;
+  }
+
+  .tat-forgot-link {
+    color: #2E8B57;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .tat-submit {
+    width: 100%;
+    padding: 16px 18px;
+    border-radius: 18px;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2E8B57 0%, #4CAF50 100%);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .tat-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 42px rgba(46, 139, 87, 0.22);
+  }
+
+  .tat-login-footer {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    color: #6B7280;
+    font-size: 0.88rem;
+  }
+
+  .tat-login-footer a {
+    color: #4B5563;
+    text-decoration: none;
+  }
+
+  .tat-security-notice {
+    margin-top: 18px;
+    padding: 16px 18px;
+    border-radius: 18px;
+    background: rgba(234, 247, 240, 0.9);
+    border: 1px solid #DDEEE5;
+    color: #2E8B57;
+    display: grid;
+    gap: 8px;
+  }
+
+  .tat-security-notice small {
+    color: #4B5563;
+  }
+
+  .tat-floating-shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .tat-floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.16;
+    background: radial-gradient(circle, rgba(46, 139, 87, 0.28) 0%, transparent 70%);
+  }
+
+  .tat-floating-shape.shape-1 { width: 180px; height: 180px; top: 40px; left: 34px; }
+  .tat-floating-shape.shape-2 { width: 120px; height: 120px; top: 220px; right: 64px; }
+  .tat-floating-shape.shape-3 { width: 220px; height: 220px; bottom: 48px; left: 20%; }
+
+  @media (max-width: 1100px) {
+    .tat-login-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .tat-login-side,
+    .tat-login-card-wrapper {
+      padding: 32px 22px;
+    }
+
+    .tat-login-card {
+      padding: 32px;
+    }
+  }
+
+  @media (max-width: 780px) {
+    .tat-login-side {
+      display: none;
+    }
+
+    .tat-login-card-wrapper {
+      justify-content: stretch;
+      padding: 28px 18px;
+    }
+
+    .tat-login-card {
+      max-width: 100%;
+      border-radius: 24px;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="tat-login-grid">
+  <section class="tat-login-side">
+    <div class="tat-hero-panel">
+      <div class="tat-logo-mark">
+        <img src="{% static 'images/logo.png' %}" alt="Talentime logo">
+      </div>
+      <div>
+        <h1 class="tat-hero-title">Welcome to Talentime</h1>
+        <p class="tat-hero-subtitle">Secure Administration Portal</p>
+      </div>
+      <div class="tat-features">
+        <div class="tat-feature">
+          <div class="tat-feature-icon">🔒</div>
+          <div class="tat-feature-text">
+            <strong>Protected Access</strong>
+            <span>Secure login with role-based permissions.</span>
+          </div>
+        </div>
+        <div class="tat-feature">
+          <div class="tat-feature-icon">🛡️</div>
+          <div class="tat-feature-text">
+            <strong>Role Management</strong>
+            <span>Control who can access every admin area.</span>
+          </div>
+        </div>
+        <div class="tat-feature">
+          <div class="tat-feature-icon">📶</div>
+          <div class="tat-feature-text">
+            <strong>Session Monitoring</strong>
+            <span>Track active sessions and device logins.</span>
+          </div>
+        </div>
+        <div class="tat-feature">
+          <div class="tat-feature-icon">🔐</div>
+          <div class="tat-feature-text">
+            <strong>Encrypted Authentication</strong>
+            <span>Industry-grade protection for admin sign-in.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tat-login-card-wrapper">
+    <div class="tat-login-card">
+      <div class="tat-login-badge">Protected Access</div>
+      <h2>Sign in to TALENTIME</h2>
+      <p>Enter your credentials to access the administration database controller.</p>
+
+      {% if form.errors %}
+        <div class="tat-security-notice" role="alert">
+          <strong>Login error</strong>
+          {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+              <small>{{ error }}</small>
+            {% endfor %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <form action="{{ app_path }}" method="post" id="login-form">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+
+        <div class="tat-form-group">
+          <label for="id_username">Email</label>
+          {{ form.username }}
+        </div>
+
+        <div class="tat-form-group tat-password-wrap">
+          <label for="id_password">Password</label>
+          {{ form.password }}
+          <button type="button" class="tat-toggle-password" onclick="togglePassword(this)">Show</button>
+        </div>
+
+        <div class="tat-remember-row">
+          <label><input type="checkbox" name="remember" /> Remember me</label>
+          <a href="#" class="tat-forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="tat-submit">Log in</button>
+      </form>
+
+      <div class="tat-security-notice">
+        <strong>Security Features</strong>
+        <small>Two-factor authentication available. Device verification, login alerts, and IP tracking are monitored for every session.</small>
+      </div>
+
+      <div class="tat-login-footer">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <span>Version 1.0.0</span>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  function togglePassword(button) {
+    const input = document.querySelector('#id_password');
+    if (!input) return;
+    input.type = input.type === 'password' ? 'text' : 'password';
+    button.textContent = input.type === 'password' ? 'Show' : 'Hide';
+  }
+</script>
+{% endblock %}
