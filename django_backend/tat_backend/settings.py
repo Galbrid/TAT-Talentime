@@ -7,8 +7,13 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-8gk1=j*ziq1dhlt#+kbk00v$plpv%275g59ehe_bq(r%4tvp3='
-DEBUG = True
-ALLOWED_HOSTS = ['*']
+DEBUG = False
+
+ALLOWED_HOSTS = [
+    "api.talentime.galbrid.online",
+    "127.0.0.1",
+    "localhost",
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
