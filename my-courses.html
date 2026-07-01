@@ -137,7 +137,7 @@
   </footer>
 
   <script>
-    const DJANGO_API = 'http://localhost:8000/api/courses';
+    const DJANGO_API = (window.TAT_API && window.TAT_API.baseUrl ? `${window.TAT_API.baseUrl}/api/courses` : 'https://api2.galbrid.online/api/courses');
     let allCourses = [];
 
     // ===== AUTH FUNCTIONS =====

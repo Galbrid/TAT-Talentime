@@ -383,7 +383,7 @@
       const successDiv = document.getElementById('loginSuccess');
 
       try {
-        const response = await fetch('/api/auth/login', {
+        const response = await fetch((window.TAT_API && window.TAT_API.getUrl ? window.TAT_API.getUrl('/api/auth/login') : 'https://api2.galbrid.online/api/auth/login'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password })
@@ -434,7 +434,7 @@
       }
 
       try {
-        const response = await fetch('/api/auth/register', {
+        const response = await fetch((window.TAT_API && window.TAT_API.getUrl ? window.TAT_API.getUrl('/api/auth/register') : 'https://api2.galbrid.online/api/auth/register'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -478,7 +478,7 @@
       const successDiv = document.getElementById('loginSuccess');
       
       // Send the Google JWT token to the backend for verification
-      fetch('/api/auth/google', {
+      fetch((window.TAT_API && window.TAT_API.getUrl ? window.TAT_API.getUrl('/api/auth/google') : 'https://api2.galbrid.online/api/auth/google'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: response.credential })
@@ -519,7 +519,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      fetch('/api/config')
+      fetch((window.TAT_API && window.TAT_API.getUrl ? window.TAT_API.getUrl('/api/config') : 'https://api2.galbrid.online/api/config'))
         .then(res => res.json())
         .then(config => {
           if (config.googleClientId && config.googleClientId !== 'YOUR_GOOGLE_CLIENT_ID_HERE.apps.googleusercontent.com') {

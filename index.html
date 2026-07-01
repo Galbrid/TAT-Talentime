@@ -973,7 +973,7 @@
         if(!comments){ showError('Comments are required.'); return; }
         submitBtn.disabled = true;
         try{
-          const res = await fetch('/api/reviews/',{
+          const res = await fetch((window.TAT_API && window.TAT_API.getUrl ? window.TAT_API.getUrl('/api/reviews/') : 'https://api2.galbrid.online/api/reviews/'),{
             method:'POST',headers:{'Content-Type':'application/json'},body: JSON.stringify({rating:selectedRating,comments:comments,name:name})
           });
           const data = await res.json();
@@ -988,7 +988,7 @@
 
       async function loadReviews(){
         try{
-          const r = await fetch('/api/reviews/');
+          const r = await fetch((window.TAT_API && window.TAT_API.getUrl ? window.TAT_API.getUrl('/api/reviews/') : 'https://api2.galbrid.online/api/reviews/'));
           const j = await r.json();
           reviews = Array.isArray(j.results) ? j.results : [];
           renderSlides();
