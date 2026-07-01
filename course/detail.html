@@ -133,68 +133,23 @@
         return;
       }
 
-      const staticCourses = {
-        '65b968600000000000000001': {
-          id: '65b968600000000000000001',
-          name: 'Basic Medical Coding',
-          category_name: 'Medical Courses',
-          price: 12000,
-          duration: '90 days',
-          level: 'Beginner',
-          instructor: 'Talentime Expert',
-          description: 'Fundamental training in medical coding principles and documentation standards.',
-          syllabus: 'Anatomy, Medical Terminology, Basic ICD-10-CM guidelines.',
-          highlights: ['Sample Chart and follow up', 'Anatomy & Medical Terminology Foundation', 'Online Mode', '100% Placement Drive']
-        },
-        '65b968600000000000000002': {
-          id: '65b968600000000000000002',
-          name: 'Masters in Medical Coding Program',
-          category_name: 'Medical Courses',
-          price: 18500,
-          duration: '90 days',
-          level: 'Advanced',
-          instructor: 'Senior Coding Expert',
-          description: 'Masters in Medical Coding is a specialized professional course that develops advanced coding skills for accurately interpreting and coding complex medical diagnoses, procedures, and healthcare services using ICD-10-CM, CPT, and HCPCS coding systems. The program prepares learners for senior coding positions in hospitals and healthcare organizations.',
-          syllabus: 'Advanced interpreting, complex procedures, specialized systems.',
-          highlights: ['In-depth industry knowledge', 'Senior coding preparation', 'Real Case Document reviews', 'Career Placement Support']
-        },
-        '65b968600000000000000004': {
-          id: '65b968600000000000000004',
-          name: 'Certified Professional Course (CPC)',
-          category_name: 'Medical Courses',
-          price: 16000,
-          duration: '90 days',
-          level: 'Professional',
-          instructor: 'AAPC Certified Trainer',
-          description: 'The CPC (Certified Professional Coder) Course is a globally recognized medical coding program that provides comprehensive training in ICD-10-CM, CPT, and HCPCS coding systems. Designed to prepare students for the CPC certification exam.',
-          syllabus: 'Diagnostic Rules, Code Assignment, Specialty Case Studies.',
-          highlights: ['AAPC Cert Prep', 'Coding Accuracy Drills', 'Documentation Best Practices', 'AAPC Exam Support']
-        }
-      };
-
       let courseData = null;
       try {
         const response = await fetch(`/api/courses/${courseId}`);
-        if (response.ok) {
-          courseData = await response.json();
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          throw new Error(`Failed to load course details (${response.status}): ${errorMessage}`);
         }
+        courseData = await response.json();
       } catch (err) {
-        console.warn('Backend fetch failed, falling back to static data.');
+        console.error('Course detail fetch error:', err);
+        showError('Unable to load course details. Please try again later.');
+        return;
       }
 
-      if (!courseData) {
-        courseData = staticCourses[courseId] || {
-          id: courseId,
-          name: 'Talentime Training Program',
-          category_name: 'Training & Development',
-          price: 15000,
-          duration: '90 days',
-          level: 'Professional',
-          instructor: 'Industry Expert',
-          description: 'Comprehensive professional training designed to make candidates industry-ready and enhance their career opportunities.',
-          syllabus: 'Practical, job-oriented training aligned with core qualifications and competencies.',
-          highlights: ['Industry-Oriented Training', 'Experienced Trainers', 'Placement Assistance', 'Career Growth Opportunities']
-        };
+      if (!courseData || !courseData.id) {
+        showError('Course data is missing or invalid.');
+        return;
       }
 
       renderCourseDetails(courseData);
