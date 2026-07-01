@@ -1,7 +1,12 @@
 (function () {
-  const configuredBaseUrl = window.__TAT_API_BASE_URL__ || '';
   const productionBaseUrl = 'https://api2.galbrid.online';
-  const apiBaseUrl = configuredBaseUrl || productionBaseUrl;
+  const configuredBaseUrl = window.__TAT_API_BASE_URL__ || '';
+  const isLocalBaseUrl = (value) => {
+    if (!value) return true;
+    const normalizedValue = value.toLowerCase();
+    return normalizedValue.includes('127.0.0.1') || normalizedValue.includes('localhost') || normalizedValue.includes('0.0.0.0');
+  };
+  const apiBaseUrl = configuredBaseUrl && !isLocalBaseUrl(configuredBaseUrl) ? configuredBaseUrl : productionBaseUrl;
 
   function resolveUrl(input) {
     if (typeof input !== 'string') return input;
