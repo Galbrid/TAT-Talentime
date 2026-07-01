@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Courses | Talentime Academy</title>
   <link rel="stylesheet" href="/assets/css/sarah.css" />
-  <script src="/assets/js/api-config.js"></script>
+  <script src="/assets/js/api-config.js?v=20260702"></script>
   <style>
     .my-courses-container { max-width: 1000px; margin: 0 auto; }
     .courses-grid { display: grid; gap: 24px; margin-top: 32px; }
@@ -137,7 +137,8 @@
   </footer>
 
   <script>
-    const DJANGO_API = (window.TAT_API && window.TAT_API.baseUrl ? `${window.TAT_API.baseUrl}/api/courses` : 'https://api2.galbrid.online/api/courses');
+    const API_BASE = 'https://api2.galbrid.online';
+    const DJANGO_API = `${window.TAT_API?.baseUrl || API_BASE}/api/courses`;
     let allCourses = [];
 
     // ===== AUTH FUNCTIONS =====
