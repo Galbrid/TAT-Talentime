@@ -1,6 +1,9 @@
 (function () {
   const configuredBaseUrl = window.__TAT_API_BASE_URL__ || '';
-  const fallbackBaseUrl = window.location.port === '8000' ? window.location.origin : 'http://127.0.0.1:8000';
+  const productionBaseUrl = 'https://api2.galbrid.online';
+  const fallbackBaseUrl = /^(localhost|127\.0\.0\.1)$/i.test(window.location.hostname)
+    ? `${window.location.protocol}//${window.location.hostname}:8000`
+    : productionBaseUrl;
   const apiBaseUrl = configuredBaseUrl || fallbackBaseUrl;
 
   function resolveUrl(input) {

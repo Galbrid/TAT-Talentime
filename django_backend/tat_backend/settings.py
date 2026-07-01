@@ -10,8 +10,9 @@ SECRET_KEY = 'django-insecure-8gk1=j*ziq1dhlt#+kbk00v$plpv%275g59ehe_bq(r%4tvp3=
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "api.talentime.galbrid.online",
     "api2.galbrid.online",
+    "talentime.galbrid.online",
+    "www.talentime.galbrid.online",
     "127.0.0.1",
     "localhost",
 ]
@@ -97,7 +98,17 @@ REST_FRAMEWORK = {
     ),
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "https://talentime.galbrid.online",
+    "https://www.talentime.galbrid.online",
+]
+CORS_ALLOW_CREDENTIALS = False
+CSRF_TRUSTED_ORIGINS = [
+    "https://talentime.galbrid.online",
+    "https://www.talentime.galbrid.online",
+    "https://api2.galbrid.online",
+]
 
 
 LOGGING = {
