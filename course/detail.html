@@ -119,6 +119,12 @@
   </footer>
 
   <script>
+    function getApiUrl(path) {
+      return (window.TAT_API && window.TAT_API.getUrl
+        ? window.TAT_API.getUrl(path)
+        : `https://api2.galbrid.online${path.startsWith('/') ? path : '/' + path}`);
+    }
+
     // ===== COURSE DETAILS LOADING & INITIALIZATION =====
     document.addEventListener('DOMContentLoaded', async () => {
       const params = new URLSearchParams(window.location.search);
@@ -135,7 +141,7 @@
 
       let courseData = null;
       try {
-        const response = await fetch(`/api/courses/${courseId}`);
+        const response = await fetch(getApiUrl(`/api/courses/${courseId}`));
         if (!response.ok) {
           const errorMessage = await response.text();
           throw new Error(`Failed to load course details (${response.status}): ${errorMessage}`);
@@ -199,7 +205,7 @@
       if (!isLoggedIn()) return;
 
       try {
-        const response = await fetch(`/api/courses/enrollments/my_courses/`, {
+        const response = await fetch(getApiUrl('/api/courses/enrollments/my_courses/'), {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${getAuthToken()}`,
