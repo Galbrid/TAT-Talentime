@@ -214,35 +214,6 @@
     }
 
 
-    .otp-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .otp-resend {
-      width: 100%;
-      padding: 12px;
-      border: 1.5px solid rgba(3, 122, 120, 0.25);
-      background: white;
-      color: var(--teal);
-      border-radius: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .otp-resend:hover:not(:disabled) {
-      background: rgba(3, 122, 120, 0.06);
-      border-color: var(--teal);
-    }
-
-    .otp-resend:disabled {
-      cursor: not-allowed;
-      opacity: 0.65;
-    }
-
     .hidden {
       display: none !important;
     }
@@ -287,18 +258,6 @@
         </div>
 
         <button type="submit" class="auth-submit">Login</button>
-      </form>
-
-            <form onsubmit="handleVerifyOTP(event)" id="otpForm" class="hidden">
-        <div class="auth-form-group">
-          <label for="otpCode">Enter 6-digit OTP sent to your email</label>
-          <input type="text" id="otpCode" placeholder="123456" required maxlength="6" pattern="[0-9]{6}">
-          <input type="hidden" id="otpEmail">
-        </div>
-        <div class="otp-actions">
-          <button type="submit" class="auth-submit">Verify OTP & Login</button>
-          <button type="button" class="otp-resend" id="resendOtpBtn" onclick="handleResendOTP()">Resend OTP</button>
-        </div>
       </form>
 
       <div class="form-divider"><span>OR</span></div>
@@ -433,20 +392,11 @@
         const data = await response.json();
 
         if (response.ok) {
-          if (data.requireOTP) {
-            document.getElementById('mainLoginForm').classList.add('hidden');
-            document.getElementById('otpForm').classList.remove('hidden');
-            document.getElementById('otpEmail').value = data.email;
-            successDiv.textContent = data.message;
-            successDiv.style.display = 'block';
-            errorDiv.style.display = 'none';
-          } else {
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
-            document.cookie = `token=${data.token}; path=/; max-age=2592000; SameSite=Lax`;
-            const redirect = new URLSearchParams(window.location.search).get('redirect');
-            window.location.href = redirect || '/';
-          }
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          document.cookie = `token=${data.token}; path=/; max-age=2592000; SameSite=Lax`;
+          const redirect = new URLSearchParams(window.location.search).get('redirect');
+          window.location.href = redirect || '/';
         } else {
           errorDiv.textContent = data.message || 'Login failed. Please try again.';
           errorDiv.style.display = 'block';
@@ -458,101 +408,11 @@
       }
     }
 
-    function startResendCooldown(seconds = 30) {
-      const button = document.getElementById('resendOtpBtn');
-      if (!button) return;
-
-      let remaining = seconds;
-      button.disabled = true;
-      button.textContent = 'Resend OTP in ' + remaining + 's';
-
-      const timer = setInterval(() => {
-        remaining -= 1;
-        if (remaining <= 0) {
-          clearInterval(timer);
-          button.disabled = false;
-          button.textContent = 'Resend OTP';
-        } else {
-          button.textContent = 'Resend OTP in ' + remaining + 's';
-        }
-      }, 1000);
-    }
-
-    async function handleResendOTP() {
-      const email = document.getElementById('otpEmail').value;
-      const errorDiv = document.getElementById('loginError');
-      const successDiv = document.getElementById('loginSuccess');
-
-      if (!email) {
-        errorDiv.textContent = 'Please login again before requesting a new OTP.';
-        errorDiv.style.display = 'block';
-        successDiv.style.display = 'none';
-        return;
-      }
-
-      try {
-        const response = await fetch('/api/auth/resend-otp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          document.getElementById('otpCode').value = '';
-          successDiv.textContent = data.message || 'A new OTP has been sent to your email.';
-          successDiv.style.display = 'block';
-          errorDiv.style.display = 'none';
-          startResendCooldown();
-        } else {
-          errorDiv.textContent = data.message || 'Could not resend OTP. Please try again.';
-          errorDiv.style.display = 'block';
-          successDiv.style.display = 'none';
-        }
-      } catch (error) {
-        errorDiv.textContent = 'Error requesting a new OTP.';
-        errorDiv.style.display = 'block';
-        successDiv.style.display = 'none';
-      }
-    }
-
-    async function handleVerifyOTP(event) {
-      event.preventDefault();
-      const email = document.getElementById('otpEmail').value;
-      const otp = document.getElementById('otpCode').value;
-      const errorDiv = document.getElementById('loginError');
-
-      try {
-        const response = await fetch('/api/auth/verify-otp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, otp })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('user', JSON.stringify(data.user));
-          document.cookie = `token=${data.token}; path=/; max-age=2592000; SameSite=Lax`;
-          const redirect = new URLSearchParams(window.location.search).get('redirect');
-          window.location.href = redirect || '/';
-        } else {
-          errorDiv.textContent = data.message || 'OTP verification failed.';
-          errorDiv.style.display = 'block';
-        }
-      } catch (error) {
-        errorDiv.textContent = 'Error verifying OTP.';
-        errorDiv.style.display = 'block';
-      }
-    }
-
     async function handleRegister(event) {
       event.preventDefault();
       
-      const firstName = document.getElementById('firstName').value;
-      const lastName = document.getElementById('lastName').value;
+      const first_name = document.getElementById('firstName').value;
+      const last_name = document.getElementById('lastName').value;
       const email = document.getElementById('registerEmail').value;
       const phone = document.getElementById('phone').value;
       const country = document.getElementById('country').value;
@@ -578,8 +438,8 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            firstName,
-            lastName,
+            first_name,
+            last_name,
             email,
             phone,
             country,

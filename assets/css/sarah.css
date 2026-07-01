@@ -1208,9 +1208,13 @@ section {
 }
 
 .footer-brand .brand-logo {
-  height: 44px;
+  height: 70px;
+  /* Kept your preferred height from the inline style */
+  width: auto;
+  max-width: 250px;
+  object-fit: contain;
   align-self: flex-start;
-  filter: brightness(0) invert(1);
+  /* Removed filter: brightness(0) invert(1); */
 }
 
 .footer-brand p {
