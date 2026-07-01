@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Dashboard | Talentime Academy</title>
   <link rel="stylesheet" href="/assets/css/sarah.css">
-  <script src="/assets/js/api-config.js"></script>
+  <script src="/assets/js/api-config.js?v=20260702"></script>
   <style>
     :root {
       --teal: #007A78;
@@ -668,6 +668,12 @@
   </div>
 
   <script>
+    const API_BASE = 'https://api2.galbrid.online';
+    function getApiUrl(path) {
+      const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+      return `${window.TAT_API?.baseUrl || API_BASE}${normalizedPath}`;
+    }
+
     function initDashboard() {
       // Check if user is logged in
       const user = JSON.parse(localStorage.getItem('user'));
@@ -689,7 +695,7 @@
     async function loadDashboardData() {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('/api/student/dashboard', {
+        const response = await fetch(getApiUrl('/api/student/dashboard'), {
           headers: { 'Authorization': `Bearer ${token}` }
         });
 
@@ -789,31 +795,31 @@
 
       try {
         if (section === 'courses') {
-          const response = await fetch('/api/student/courses', {
+          const response = await fetch(getApiUrl('/api/student/courses'), {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           const courses = await response.json();
           loadCoursesList(courses);
         } else if (section === 'applications') {
-          const response = await fetch('/api/student/applications', {
+          const response = await fetch(getApiUrl('/api/student/applications'), {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           const applications = await response.json();
           loadApplicationsList(applications);
         } else if (section === 'certificates') {
-          const response = await fetch('/api/student/certificates', {
+          const response = await fetch(getApiUrl('/api/student/certificates'), {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           const certificates = await response.json();
           loadCertificatesList(certificates);
         } else if (section === 'payments') {
-          const response = await fetch('/api/student/payments', {
+          const response = await fetch(getApiUrl('/api/student/payments'), {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           const payments = await response.json();
           loadPaymentsList(payments);
         } else if (section === 'resources') {
-          const response = await fetch('/api/student/resources', {
+          const response = await fetch(getApiUrl('/api/student/resources'), {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           const resources = await response.json();

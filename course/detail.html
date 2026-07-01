@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Course Details | Talentime Academy</title>
   <link rel="stylesheet" href="/assets/css/sarah.css" />
-  <script src="/assets/js/api-config.js"></script>
+  <script src="/assets/js/api-config.js?v=20260702"></script>
   <style>
     .loader { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(46, 139, 87, 0.2); border-radius: 50%; border-top-color: #2E8B57; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -119,10 +119,10 @@
   </footer>
 
   <script>
+    const API_BASE = 'https://api2.galbrid.online';
     function getApiUrl(path) {
-      return (window.TAT_API && window.TAT_API.getUrl
-        ? window.TAT_API.getUrl(path)
-        : `https://api2.galbrid.online${path.startsWith('/') ? path : '/' + path}`);
+      const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+      return `${window.TAT_API?.baseUrl || API_BASE}${normalizedPath}`;
     }
 
     // ===== COURSE DETAILS LOADING & INITIALIZATION =====
