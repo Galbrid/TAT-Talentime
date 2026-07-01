@@ -13,6 +13,7 @@ ALLOWED_HOSTS = [
     "api2.galbrid.online",
     "talentime.galbrid.online",
     "www.talentime.galbrid.online",
+    "www.talentimebs.com",
     "127.0.0.1",
     "localhost",
 ]
@@ -102,11 +103,13 @@ CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     "https://talentime.galbrid.online",
     "https://www.talentime.galbrid.online",
+    "https://www.talentimebs.com",
 ]
 CORS_ALLOW_CREDENTIALS = False
 CSRF_TRUSTED_ORIGINS = [
     "https://talentime.galbrid.online",
     "https://www.talentime.galbrid.online",
+    "https://www.talentimebs.com",
     "https://api2.galbrid.online",
 ]
 

@@ -1,0 +1,68 @@
+{% extends "admin/change_list.html" %}
+
+{% block object-tools-items %}
+<li>
+  <a href="#" id="tatExportExcelBtn" class="historylink">Export Excel</a>
+</li>
+{{ block.super }}
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const exportBtn = document.getElementById('tatExportExcelBtn');
+    if (!exportBtn) return;
+
+    exportBtn.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      const table = document.querySelector('#result_list') || document.querySelector('.results table');
+      if (!table) {
+        alert('No table data available to export.');
+        return;
+      }
+
+      const clonedTable = table.cloneNode(true);
+      clonedTable.querySelectorAll('input, button, select').forEach((node) => {
+        const cell = node.closest('td, th');
+        if (cell) {
+          if (node.type === 'checkbox') {
+            const mark = node.checked ? 'Yes' : 'No';
+            const text = document.createTextNode(mark);
+            cell.textContent = '';
+            cell.appendChild(text);
+          } else {
+            node.remove();
+          }
+        } else {
+          node.remove();
+        }
+      });
+
+      const workbook = [
+        '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">',
+        '<head><meta charset="UTF-8"></head>',
+        '<body>',
+        clonedTable.outerHTML,
+        '</body>',
+        '</html>'
+      ].join('');
+
+      const blob = new Blob([workbook], { type: 'application/vnd.ms-excel' });
+      const filename = (document.title || 'admin-table')
+        .replace(/[^a-z0-9_-]+/gi, '-')
+        .replace(/^-+|-+$/g, '')
+        .toLowerCase() + '.xls';
+
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    });
+  });
+</script>
+{% endblock %}

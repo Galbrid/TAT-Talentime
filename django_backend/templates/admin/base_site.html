@@ -53,6 +53,27 @@
     box-shadow: 0 10px 30px rgba(35, 123, 81, 0.08);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 22px;
+    box-sizing: border-box;
+  }
+
+  #header #branding {
+    float: none;
+    margin: 0;
+    min-width: 300px;
+  }
+
+  #header #user-tools {
+    float: none;
+    margin: 0 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    max-width: 980px;
   }
 
   #branding {
@@ -184,27 +205,19 @@
     font-size: 0.78rem;
   }
 
-  .tat-shell {
-    display: grid;
-    grid-template-columns: 292px minmax(0, 1fr);
-    gap: 24px;
-    max-width: 1480px;
-    margin: 0 auto;
-    padding: 112px 24px 34px;
-    min-height: calc(100vh - 142px);
-  }
-
-  .tat-sidebar {
+  #nav-sidebar.tat-sidebar {
     background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(246,250,247,0.98) 100%);
     border: 1px solid var(--tat-border);
     border-radius: 28px;
     padding: 22px;
     position: sticky;
     top: 104px;
-    align-self: start;
-    height: fit-content;
+    height: calc(100vh - 124px);
     box-shadow: var(--tat-shadow);
     overflow: hidden;
+    overflow-y: auto;
+    width: 300px;
+    left: 22px;
   }
 
   .tat-sidebar-top {
@@ -243,6 +256,87 @@
 
   .tat-menu-section {
     margin-bottom: 24px;
+  }
+
+  .tat-app-table-wrap {
+    margin-bottom: 20px;
+  }
+
+  .tat-app-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--tat-border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .tat-app-table th,
+  .tat-app-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #ebf5ee;
+    font-size: 0.85rem;
+    vertical-align: middle;
+  }
+
+  .tat-app-table th {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tat-muted);
+    background: #f7fcf9;
+    font-weight: 700;
+  }
+
+  .tat-app-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .tat-app-row:hover td {
+    background: rgba(234, 247, 240, 0.8);
+  }
+
+  .tat-model-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(46, 139, 87, 0.12);
+    border: 1px solid rgba(46, 139, 87, 0.2);
+    color: var(--tat-primary);
+    font-weight: 700;
+    font-size: 0.76rem;
+    text-decoration: none;
+  }
+
+  .tat-model-link:hover {
+    background: rgba(46, 139, 87, 0.18);
+    color: var(--tat-primary);
+  }
+
+  .tat-model-link.is-active {
+    background: var(--tat-primary);
+    border-color: var(--tat-primary);
+    color: #ffffff;
+  }
+
+  .tat-model-link.muted {
+    background: rgba(107, 114, 128, 0.1);
+    border-color: rgba(107, 114, 128, 0.15);
+    color: var(--tat-muted);
+  }
+
+  .tat-empty-sidebar {
+    border: 1px dashed var(--tat-border);
+    border-radius: 14px;
+    padding: 16px;
+    color: var(--tat-muted);
+    font-size: 0.85rem;
+    background: #fbfefd;
   }
 
   .tat-menu-title {
@@ -289,10 +383,16 @@
     background: rgba(46, 139, 87, 0.08);
   }
 
-  .tat-content {
-    display: grid;
-    gap: 22px;
+  #content {
+    margin-top: 104px;
+    margin-left: 350px;
+    padding: 24px;
     min-width: 0;
+  }
+
+  #content-main {
+    width: 100%;
+    max-width: 1320px;
   }
 
   .tat-page-header {
@@ -854,11 +954,6 @@
   }
 
   @media (max-width: 1180px) {
-    .tat-shell {
-      grid-template-columns: 1fr;
-      padding: 110px 18px 24px;
-    }
-
     .tat-module-grid,
     .tat-stat-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -895,24 +990,28 @@
 
   @media (max-width: 720px) {
     #header {
-      padding: 14px 16px;
+      padding: 12px 14px;
+      flex-wrap: wrap;
+      height: auto;
     }
 
-    .tat-shell {
-      padding: 110px 16px 24px;
-      gap: 16px;
+    #header #branding {
+      min-width: auto;
     }
 
-    .tat-sidebar {
-      position: static;
-      top: auto;
-      box-shadow: none;
-      border: 1px solid var(--tat-border);
-      padding: 16px;
+    #header #user-tools {
+      max-width: 100%;
     }
 
-    .tat-header-search {
+    .tat-header-search,
+    #nav-sidebar {
       display: none;
+    }
+
+    #content {
+      margin-left: 0;
+      margin-top: 96px;
+      padding: 16px;
     }
 
     .tat-stat-grid,
@@ -968,65 +1067,10 @@
     }
   }
 
-  /* Django Default Admin Sidebar & Layout Styling */
-  #sidebar {
-    background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(246,250,247,0.98) 100%);
-    border-right: 1px solid var(--tat-border);
-    padding: 20px;
-    position: fixed;
-    width: 268px;
-    height: calc(100vh - 104px);
-    top: 104px;
-    left: 0;
-    overflow-y: auto;
-    box-shadow: 0 12px 34px rgba(35, 123, 81, 0.06);
-  }
-
-  #sidebar h2 {
-    margin: 20px 0 12px 0;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--tat-muted);
-    font-weight: 700;
-  }
-
-  #sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  #sidebar li {
-    margin: 0;
-  }
-
-  #sidebar a {
-    display: block;
-    padding: 10px 12px;
-    margin-bottom: 6px;
-    border-radius: 12px;
-    color: var(--tat-text);
-    text-decoration: none;
-    transition: all 0.2s ease;
-    font-weight: 500;
-    font-size: 0.95rem;
-  }
-
-  #sidebar a:hover {
-    background: rgba(46, 139, 87, 0.08);
-    color: var(--tat-primary);
-  }
-
   /* Main content area */
   #main {
-    margin-left: 288px;
-    padding-top: 104px;
-    background: transparent;
-  }
-
-  #content {
-    padding: 24px;
+    margin-left: 0;
+    padding-top: 0;
     background: transparent;
   }
 
@@ -1384,12 +1428,15 @@
 
   /* Responsive adjustments */
   @media (max-width: 900px) {
-    #sidebar {
-      width: 240px;
+    #nav-sidebar.tat-sidebar {
+      width: 248px;
+      left: 10px;
+      padding: 16px;
     }
 
-    #main {
-      margin-left: 256px;
+    #content {
+      margin-left: 286px;
+      padding: 18px;
     }
 
     .form-row {
@@ -1398,20 +1445,6 @@
   }
 
   @media (max-width: 600px) {
-    #sidebar {
-      position: static;
-      width: 100%;
-      height: auto;
-      border-right: none;
-      border-bottom: 1px solid var(--tat-border);
-      top: auto;
-    }
-
-    #main {
-      margin-left: 0;
-      padding-top: 0;
-    }
-
     .submit-row {
       flex-direction: column;
     }
@@ -1462,93 +1495,74 @@
 
 {% block nav-global %}{% endblock %}
 
+{% block nav-sidebar %}
+<nav id="nav-sidebar" class="tat-sidebar" aria-label="Admin Tables Sidebar">
+  <div class="tat-sidebar-top">
+    <h2>Tables</h2>
+    <button type="button" id="sidebarToggle">Menu</button>
+  </div>
+  <div class="tat-sidebar-search">
+    <input type="search" id="sidebarSearch" placeholder="Search tables...">
+  </div>
+  {% if available_apps %}
+    {% for app in available_apps %}
+    <div class="tat-app-table-wrap tat-menu-section">
+      <div class="tat-menu-title">{{ app.name }}</div>
+      <table class="tat-app-table">
+        <thead>
+          <tr>
+            <th>Table</th>
+            <th>Open</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for model in app.models %}
+          <tr class="tat-app-row">
+            <td>{{ model.name }}</td>
+            <td>
+              {% if model.admin_url %}
+              <a href="{{ model.admin_url }}" class="tat-model-link">Open</a>
+              {% else %}
+              <span class="tat-model-link muted">N/A</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="tat-empty-sidebar">No apps are available for this account.</div>
+  {% endif %}
+</nav>
+{% endblock %}
+
 {% block content %}
-<div class="tat-shell tat-fade-in">
-  <aside class="tat-sidebar">
-    <div class="tat-sidebar-top">
-      <h2>Navigation</h2>
-      <button type="button" id="sidebarToggle">Menu</button>
-    </div>
-    <div class="tat-sidebar-search">
-      <input type="search" id="sidebarSearch" placeholder="Search menu...">
-    </div>
-    <div class="tat-menu-section">
-      <div class="tat-menu-title">Accounts</div>
-      <a href="{% url 'admin:accounts_role_changelist' %}" class="tat-menu-item">
-        <span>👤</span>
-        <div>Roles</div>
-      </a>
-      <a href="{% url 'admin:accounts_user_changelist' %}" class="tat-menu-item">
-        <span>🧑‍💼</span>
-        <div>Users</div>
-      </a>
-      <a href="{% url 'admin:accounts_userrolemapping_changelist' %}" class="tat-menu-item">
-        <span>🔗</span>
-        <div>User role mappings</div>
-      </a>
-    </div>
-    <div class="tat-menu-section">
-      <div class="tat-menu-title">Authentication & Authorization</div>
-      <a href="{% url 'admin:auth_group_changelist' %}" class="tat-menu-item">
-        <span>🛡️</span>
-        <div>Groups</div>
-      </a>
-    </div>
-    <div class="tat-menu-section">
-      <div class="tat-menu-title">Portal</div>
-      <a href="{% url 'admin:portal_application_changelist' %}" class="tat-menu-item">
-        <span>📄</span>
-        <div>Applications</div>
-      </a>
-      <a href="{% url 'admin:portal_booking_changelist' %}" class="tat-menu-item">
-        <span>🛎️</span>
-        <div>Bookings</div>
-      </a>
-      <a href="{% url 'admin:portal_certificate_changelist' %}" class="tat-menu-item">
-        <span>📜</span>
-        <div>Certificates</div>
-      </a>
-      <a href="{% url 'admin:portal_course_changelist' %}" class="tat-menu-item">
-        <span>🎓</span>
-        <div>Courses</div>
-      </a>
-      <a href="{% url 'admin:portal_inquiry_changelist' %}" class="tat-menu-item">
-        <span>✉️</span>
-        <div>Inquiries</div>
-      </a>
-      <a href="{% url 'admin:portal_lead_changelist' %}" class="tat-menu-item">
-        <span>📌</span>
-        <div>Leads</div>
-      </a>
-      <a href="{% url 'admin:portal_payment_changelist' %}" class="tat-menu-item">
-        <span>💰</span>
-        <div>Payments</div>
-      </a>
-      <a href="{% url 'admin:portal_resource_changelist' %}" class="tat-menu-item">
-        <span>📚</span>
-        <div>Resources</div>
-      </a>
-    </div>
-  </aside>
-  <main class="tat-content">
-    {{ block.super }}
-  </main>
-</div>
+{{ block.super }}
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const sidebarSearch = document.getElementById('sidebarSearch');
-    const sidebarItems = document.querySelectorAll('.tat-menu-item');
+    const sidebarRows = document.querySelectorAll('.tat-app-row');
+    const modelLinks = document.querySelectorAll('.tat-model-link[href]');
+
+    const currentPath = window.location.pathname;
+    modelLinks.forEach((link) => {
+      if (currentPath === link.pathname) {
+        link.classList.add('is-active');
+      }
+    });
 
     sidebarSearch?.addEventListener('input', function () {
       const query = this.value.toLowerCase();
-      sidebarItems.forEach(item => {
-        const label = item.textContent.trim().toLowerCase();
-        item.style.display = label.includes(query) ? 'grid' : 'none';
+      sidebarRows.forEach(row => {
+        const label = row.textContent.trim().toLowerCase();
+        row.style.display = label.includes(query) ? '' : 'none';
       });
     });
 
     document.getElementById('sidebarToggle')?.addEventListener('click', function () {
-      document.querySelector('.tat-sidebar')?.classList.toggle('collapsed');
+      document.getElementById('nav-sidebar')?.classList.toggle('collapsed');
     });
   });
 </script>
